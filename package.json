@@ -1,0 +1,31 @@
+{
+  "name": "rj-validate",
+  "version": "0.0.1",
+  "description": "Universal JS Validation Library",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack --config webpack.config.js",
+    "test": "test",
+    "watch": "npm run build -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Patchx/rj-validate.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "form",
+    "validation"
+  ],
+  "author": "Robert Anderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Patchx/rj-validate/issues"
+  },
+  "homepage": "https://github.com/Patchx/rj-validate#readme",
+  "devDependencies": {
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
