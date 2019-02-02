@@ -4,7 +4,9 @@
   "description": "Universal JS Validation Library",
   "main": "index.js",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config webpack.config.js",
+    "build": "node_modules/.bin/webpack --config webpack.config.js --mode=development",
+    "dev": "npm run watch",
+    "prod": "npm run build -- --mode=production",
     "test": "test",
     "watch": "npm run build -- --watch"
   },
@@ -25,7 +27,7 @@
   },
   "homepage": "https://github.com/Patchx/rj-validate#readme",
   "devDependencies": {
-    "webpack": "^4.29.0",
+    "webpack": "4.25.1",
     "webpack-cli": "^3.2.1"
   }
 }
