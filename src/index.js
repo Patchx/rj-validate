@@ -1,1 +1,28 @@
-alert('test watch');
+// ----------------
+// - Dependencies -
+// ----------------
+
+var rules = require('./rules.js');
+var helpers = require('./helpers.js');
+
+// ---------------------
+// - Private Functions -
+// ---------------------
+
+// ----------
+// - Export -
+// ----------
+
+module.exports = {
+	validate: (to_test, rules_arg) => {
+		if (to_test === undefined || rules_arg === undefined) {
+			throw new Error("Not enough arguments passed to function 'validate'");
+		}
+
+		if (!helpers.isObject(rules_arg)) {
+			throw new Error("Rules must be an object");
+		}
+
+		return 'test';
+	}
+};
