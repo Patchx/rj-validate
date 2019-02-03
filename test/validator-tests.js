@@ -1,6 +1,9 @@
 var assert = require('chai').assert;
 var rj = require('../src/index.js');
 
+console.log(rj);
+console.log('ssssss');
+
 describe('Validator', () => {
 	it('should throw an error if no arguments included', () => {
 		assert.throw(

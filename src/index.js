@@ -2,8 +2,8 @@
 // - Dependencies -
 // ----------------
 
-var rules = require('./rules.js');
-var helpers = require('./helpers.js');
+// var rules = require('./rules.js');
+var h = require('./helpers.js');
 
 // ---------------------
 // - Private Functions -
@@ -19,7 +19,7 @@ module.exports = {
 			throw new Error("Not enough arguments passed to function 'validate'");
 		}
 
-		if (!helpers.isObject(rules_arg)) {
+		if (!h.isObject(rules_arg)) {
 			throw new Error("Rules must be an object");
 		}
 
