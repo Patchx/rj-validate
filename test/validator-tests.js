@@ -1,5 +1,6 @@
 var assert = require('chai').assert;
-var rj = require('../src/index.js');
+// var rj = require('../src/index.js');
+var rj = require('../dist/main.js');
 
 console.log(rj);
 console.log('ssssss');
