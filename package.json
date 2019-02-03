@@ -1,8 +1,8 @@
 {
   "name": "rj-validate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Universal JS Validation Library",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode=development",
     "dev": "npm run watch",
