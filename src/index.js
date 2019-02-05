@@ -1,5 +1,6 @@
 // Todo:
 // * need to allow users to pass custom failure messages in the rules_arg
+// * need to fix test().  It isn't working correctly
 
 // ----------------
 // - Dependencies -
