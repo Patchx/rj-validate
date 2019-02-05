@@ -1,6 +1,9 @@
 // Todo:
-// * need to allow users to pass custom failure messages in the rules_arg
-// * need to fix test().  It isn't working correctly
+// * Need to allow users to pass custom failure messages in the rules_arg
+// * Need to fix test().  It isn't working correctly
+// * Need to allow totally custom messages, using the convention of required_msg for required, within the rules_arg param
+// * Need to refactor this first real if statement to loop through an array of rule types. The first rule in the array is the highest priority
+// * Eventually, need to allow custom rules, with custom priority levels
 
 // ----------------
 // - Dependencies -
