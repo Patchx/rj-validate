@@ -42,4 +42,15 @@ rj.test('', {
 
 // output:
 // Object {message: "That's a failure", valid: false}
+
+
+rj.validate('foobar', {
+	required: true,
+	required_msg: 'Profile name is definitely required',
+	min: 7,
+	min_msg: "Hold on, that profile name isn't long enough",
+});
+
+// output:
+// Object {message: "Hold on, that profile name isn't long enough", valid: false}
 ```

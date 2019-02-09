@@ -1,7 +1,9 @@
 const assert = require('chai').assert;
 const rj = require('../dist/main.js');
 
-describe('validate()', () => {
+// Testing the 'required' rule extensively here to prove the integration. Other rules will be tested at the unit level
+
+describe('validate() parameter checking', () => {
 	it('should throw an error if no arguments included', () => {
 		assert.throw(
 			rj.validate, 
@@ -49,6 +51,38 @@ describe('validate()', () => {
 			"Invalid test parameter"
 		);
 	});
+});
+
+describe('validate() valid flag', () => {
+	it('should return valid === true if required is set to false', () => {
+		var output = rj.validate(undefined, {required: false});
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for required on undefined', () => {
+		var output = rj.validate(undefined, {required: true});
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === false for required on undefined object property', () => {
+		var output = rj.validate({}.foo, {required: true});
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === false for required on null', () => {
+		var output = rj.validate(null, {required: true});
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === false for required on 0', () => {
+		var output = rj.validate(0, {required: true});
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for required on 1', () => {
+		var output = rj.validate(1, {required: true});
+		assert.equal(output.valid, true);
+	});
 
 	it('should return valid === false for required on an empty string', () => {
 		var output = rj.validate('', {required: true});
@@ -60,6 +94,31 @@ describe('validate()', () => {
 		assert.equal(output.valid, false);
 	});
 
+	it('should return valid === true for required on a non-empty string', () => {
+		var output = rj.validate('abc123', {required: true});
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true for required and a min of 2 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 2,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for required and a min of 7 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 7,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+});
+
+describe('validate() output message', () => {
 	it('should return the correct failure message for required on an empty string', () => {
 		var expected_msg = 'The input cannot be blank';
 		var actual_msg = rj.validate('', {required: true}).message;
@@ -96,15 +155,45 @@ describe('validate()', () => {
 		assert.equal(actual_msg, expected_msg);
 	});
 
-	it('should return valid === true for required on a non-empty string', () => {
-		var output = rj.validate('abc123', {required: true});
-		assert.equal(output.valid, true);
-	});
-
 	it('should return the correct success message for required on a non-empty string', () => {
 		var expected_msg = 'all tests pass';
 		var actual_msg = rj.validate('abc123', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
+	});
+
+	it('should return the correct error message for required and a min of 7 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 7,
+		});
+
+		var expected_msg = 'The input must be 7 or longer';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and a min of 7 on "foobar" with the variable name passed in', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 7,
+		}, 'Profile name');
+
+		var expected_msg = 'Profile name must be 7 or longer';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and a min of 7 on "foobar" with a custom error message', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			required_msg: 'Profile name is definitely required, yo',
+			min: 7,
+			min_msg: "Hold on, that profile name isn't long enough",
+		});
+
+		var expected_msg = "Hold on, that profile name isn't long enough";
+		
+		assert.equal(output.message, expected_msg);
 	});
 });
 
