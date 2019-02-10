@@ -49,7 +49,7 @@ function validateInput(to_test, rules_arg, var_name='') {
 	if (!validTestParam(to_test)) {
 		throw new Error("Invalid test parameter");
 	}
-
+	
 	for (var i = 0; i < rules_schema.length; i++) {
 		var rule_obj = rules_schema[i];
 		var rule_name = rule_obj.rule_name;

@@ -3,6 +3,20 @@
 var h = require('./helpers.js');
 
 module.exports = {
+	max: function(to_test, rules_arg) {
+		var max = rules_arg.max;
+
+		if (max === undefined || max === null) {
+			throw new Error('Max not set');
+		}
+
+		if (h.isNumber(to_test)) {
+			return to_test <= max;
+		}
+
+		return to_test.length <= max;
+	},
+
 	min: function(to_test, rules_arg) {
 		var min = rules_arg.min;
 

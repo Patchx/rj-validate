@@ -116,6 +116,16 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	it('should return valid === false for required,  min of 2, and max of 5 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 2,
+			max: 5,
+		});
+		
+		assert.equal(output.valid, false);
+	});
 });
 
 describe('validate() output message', () => {
@@ -192,6 +202,54 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = "Hold on, that profile name isn't long enough";
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required, a min of 2 and a max of 5 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 2,
+			max: 5,
+		});
+
+		var expected_msg = 'The input must be 5 or shorter';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required, a min of 7 and a max of 30 on "foobar"', () => {
+		var output = rj.validate('foobar', {
+			required: true,
+			min: 7,
+			max: 30,
+		});
+
+		var expected_msg = 'The input must be 7 or longer';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required, a min of 2 and a max of 5 on 6', () => {
+		var output = rj.validate(6, {
+			required: true,
+			min: 2,
+			max: 5,
+		});
+
+		var expected_msg = 'The input must be 5 or smaller';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required, a min of 7 and a max of 30 on 6', () => {
+		var output = rj.validate(6, {
+			required: true,
+			min: 7,
+			max: 30,
+		});
+
+		var expected_msg = 'The input must be 7 or larger';
 		
 		assert.equal(output.message, expected_msg);
 	});

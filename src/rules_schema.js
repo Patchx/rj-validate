@@ -45,5 +45,33 @@ module.exports = [
 		test: function(to_test, rules_arg) {
 			return rules_tests.min(to_test, rules_arg);
 		}
-	}
+	},
+
+	{
+		rule_name: 'max',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			var max_length = rules_arg.max;
+
+			if (h.isNumber(to_test)) {
+				return 'The input must be ' + max_length + ' or smaller';
+			}
+
+			return 'The input must be ' + max_length + ' or shorter';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			var max_length = rules_arg.max;
+
+			if (h.isNumber(to_test)) {
+				return var_name + ' must be ' + max_length + ' or smaller';
+			}
+
+			return var_name + ' must be ' + max_length + ' or shorter';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.max(to_test, rules_arg);
+		}
+	},
 ];
