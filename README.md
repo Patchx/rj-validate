@@ -7,7 +7,7 @@ https://www.npmjs.com/package/rj-validate
 This package is a work in progress, please check back occassionally for new validation options to be available.
 
 
-##Why use rj-validate?:
+## Why use rj-validate?:
 
 There are a ton of validation libraries out there. However, many of these libraries are:
 * Tightly coupled to another framework (see jQuery Validate, VeeValidate, etc)
@@ -19,7 +19,7 @@ There are a ton of validation libraries out there. However, many of these librar
 rj-validate was built to be a simple, easy to use validation library that can be used across the stack, regardless of the other javascript frameworks you might be using.
 
 
-##How to use:
+## How to use:
 
 NPM is the recommended way to install this package:
 
@@ -103,7 +103,7 @@ rules = {
 ```
 
 
-##Examples:
+## Examples:
 
 ```javascript
 var rj = require("rj-validate");
