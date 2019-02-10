@@ -9,8 +9,8 @@ This package is a work in progress, please check back occassionally for new vali
 
 ## Why use rj-validate?:
 
-There are a ton of validation libraries out there. However, many of these libraries are:
-* Tightly coupled to another framework (see jQuery Validate, VeeValidate, etc)
+There are a ton of validation libraries out there. However, many of these libraries:
+* Are tightly coupled to another framework (see jQuery Validate, VeeValidate, etc)
 * Assume server/client environment (jQuery Validate, et al.)
 * Assume where and how you want to display the error to the user (..again, see jQuery Validate, et al.)
 * Use complicated, verbose syntaxes
