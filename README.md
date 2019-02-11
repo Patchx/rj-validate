@@ -98,7 +98,8 @@ Currently available validation options:
 rules = {
 	required: (true|false),
 	min: (integer),
-	max: (integer)
+	max: (integer),
+	alpha: (true|false)
 }
 ```
 

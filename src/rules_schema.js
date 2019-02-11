@@ -74,4 +74,20 @@ module.exports = [
 			return rules_tests.max(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'alpha',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input may only contain letters';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' may only contain letters';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.alpha(to_test, rules_arg);
+		}
+	},
 ];

@@ -126,6 +126,16 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	it('should return valid === false for required,  min of 2, and alpha on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			required: true,
+			min: 2,
+			alpha: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
 });
 
 describe('validate() output message', () => {
@@ -250,6 +260,18 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = 'The input must be 7 or larger';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required, a min of 5 and alpha on "foo7bar"', () => {
+		var output = rj.validate("foo7bar", {
+			required: true,
+			min: 5,
+			alpha: true,
+		});
+
+		var expected_msg = 'The input may only contain letters';
 		
 		assert.equal(output.message, expected_msg);
 	});
