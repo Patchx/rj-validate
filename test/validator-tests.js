@@ -275,6 +275,17 @@ describe('validate() output message', () => {
 		
 		assert.equal(output.message, expected_msg);
 	});
+
+	it('should return the correct error message for required and alphanumeric on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			alphanumeric: true,
+		});
+
+		var expected_msg = 'The input may only contain letters or numbers';
+		
+		assert.equal(output.message, expected_msg);
+	});
 });
 
 // Testing test() just to make sure it returns the same responses as validate()

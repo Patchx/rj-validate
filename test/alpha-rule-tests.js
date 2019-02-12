@@ -34,8 +34,8 @@ describe('Alpha rule on a string', () => {
 		assert.equal(result, true);
 	});
 
-	it('should return true for "abc"', () => {
-		var result = rules.alpha('abc', {alpha: true});
+	it('should return true for "aBc"', () => {
+		var result = rules.alpha('aBc', {alpha: true});
 		assert.equal(result, true);
 	});
 

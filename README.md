@@ -100,6 +100,7 @@ rules = {
 	min: (integer),
 	max: (integer),
 	alpha: (true|false)
+	alphanumeric: (true|false)
 }
 ```
 
