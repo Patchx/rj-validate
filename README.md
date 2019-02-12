@@ -99,7 +99,7 @@ rules = {
 	required: (true|false),
 	min: (integer),
 	max: (integer),
-	alpha: (true|false)
+	alpha: (true|false),
 	alphanumeric: (true|false)
 }
 ```
