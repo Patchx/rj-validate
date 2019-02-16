@@ -110,6 +110,8 @@ rules = {
 }
 ```
 
+Note that a [rule]:false will always be considered valid. This option exists solely to help dynamically specify rules at runtime.
+
 
 ## Examples:
 
