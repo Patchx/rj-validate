@@ -51,6 +51,22 @@ module.exports = {
 	    return regex_result[0] === to_test;
 	},
 
+	isEmail: function(to_test, rules_arg) {
+		if (rules_arg.email === false) {
+			return true;
+		}
+
+		if (!h.isString(to_test)) {
+			return false;
+		}
+
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+		regex_result = to_test.match(regex);
+		
+		return regex_result !== null;
+	},
+
 	isPoBox: function(to_test, rules_arg) {
 		if (!h.isString(to_test)) {
 			return false;

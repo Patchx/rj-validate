@@ -289,6 +289,33 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	it('should return valid === true for min of 2 and email:false on "abc"', () => {
+		var output = rj.validate('abc', {
+			min: 2,
+			email: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and email on "abc"', () => {
+		var output = rj.validate('abc', {
+			min: 2,
+			email: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for min of 2 and email on "abc@abc.abc"', () => {
+		var output = rj.validate('abc@abc.abc', {
+			min: 2,
+			email: true,
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -495,13 +522,36 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct error message for required and is_string true on "foo7bar!@#"', () => {
+	it('should return the correct error message for required and is_string true on 123', () => {
 		var output = rj.validate(123, {
 			required: true,
 			is_string: true,
 		});
 
 		var expected_msg = 'The input must be a string';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and email on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			email: true,
+		});
+
+		var expected_msg = 'The input must be an email address';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct custom error message for required and email on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			email: true,
+			email_msg: 'not valid email',
+		});
+
+		var expected_msg = 'not valid email';
 		
 		assert.equal(output.message, expected_msg);
 	});

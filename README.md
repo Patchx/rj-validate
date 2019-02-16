@@ -104,6 +104,7 @@ rules = {
 	numeric: (true|false|'number'|'string'),
 	is_number: (true|false),
 	is_string: (true|false),
+	email: (true|false),
 	po_box: (true|false),
 	not_po_box: (true|false)
 }

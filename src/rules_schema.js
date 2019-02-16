@@ -156,6 +156,22 @@ module.exports = [
 	},
 
 	{
+		rule_name: 'email',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input must be an email address';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be an email address';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.isEmail(to_test, rules_arg);
+		}
+	},
+
+	{
 		rule_name: 'po_box',
 
 		no_varname_msg: function(to_test, rules_arg) {
