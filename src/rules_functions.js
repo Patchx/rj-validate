@@ -92,6 +92,34 @@ module.exports = {
 		return to_test.length >= min;
 	},
 
+	numeric: function(to_test, rules_arg) {
+		if (rules_arg.numeric === false) {
+			return true;
+		}
+
+		if (rules_arg.numeric === 'number') {
+			return h.isNumber(to_test);
+		}
+
+		if (rules_arg.numeric === 'string' && !h.isString(to_test)) {
+			return false;
+		}
+
+		if (h.isNumber(to_test)) {
+			return true;
+		}
+
+		const converted_num = Number(to_test);
+
+		if (converted_num === NaN) {
+			return false;
+		}
+
+		const converted_string = converted_num.toString();
+
+		return to_test === converted_string;
+	},
+
 	required: function(to_test, rules_arg) {
 		if (rules_arg.required === false) {
 			return true;

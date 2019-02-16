@@ -190,6 +190,51 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	it('should return valid === true for min of 2 and numeric false on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			numeric: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and numeric true on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			numeric: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for min of 2 and numeric false on "123"', () => {
+		var output = rj.validate('123', {
+			min: 2,
+			numeric: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true for min of 2 and numeric of "string" on "123"', () => {
+		var output = rj.validate('123', {
+			min: 2,
+			numeric: "string",
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and numeric of "number" on "123"', () => {
+		var output = rj.validate('123', {
+			min: 2,
+			numeric: "number",
+		});
+		
+		assert.equal(output.valid, false);
+	});
 });
 
 describe('validate() output message', () => {
@@ -359,6 +404,28 @@ describe('validate() output message', () => {
 		}, 'street line 1');
 
 		var expected_msg = 'street line 1 must not be a P.O. Box';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and numeric true on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			numeric: true,
+		});
+
+		var expected_msg = 'The input must be a number';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and numeric string on 123 with a custom variable name', () => {
+		var output = rj.validate(123, {
+			required: true,
+			numeric: 'string',
+		}, 'birth date');
+
+		var expected_msg = 'birth date must be a number';
 		
 		assert.equal(output.message, expected_msg);
 	});

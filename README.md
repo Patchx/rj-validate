@@ -101,6 +101,7 @@ rules = {
 	max: (integer),
 	alpha: (true|false),
 	alphanumeric: (true|false),
+	numeric: (true|false|'number'|'string'),
 	po_box: (true|false),
 	not_po_box: (true|false)
 }
