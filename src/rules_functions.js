@@ -63,6 +63,22 @@ module.exports = {
 		return regex_result !== null;
 	},
 
+	isNumber: function(to_test, rules_arg) {
+		if (rules_arg.is_number === false) {
+			return true;
+		}
+
+		return h.isNumber(to_test);
+	},
+
+	isString: function(to_test, rules_arg) {
+		if (rules_arg.is_string === false) {
+			return true;
+		}
+
+		return h.isString(to_test);
+	},
+
 
 	max: function(to_test, rules_arg) {
 		var max = rules_arg.max;

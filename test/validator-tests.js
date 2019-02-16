@@ -235,6 +235,60 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	it('should return valid === true for min of 2 and is_number of false on "abc"', () => {
+		var output = rj.validate('abc', {
+			min: 2,
+			is_number: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and is_number of true on "abc"', () => {
+		var output = rj.validate('abc', {
+			min: 2,
+			is_number: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for min of 2 and is_number of true on 123', () => {
+		var output = rj.validate(123, {
+			min: 2,
+			is_number: true,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true for min of 2 and is_string of false on 123', () => {
+		var output = rj.validate(123, {
+			min: 2,
+			is_string: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and is_string of true on 123', () => {
+		var output = rj.validate(123, {
+			min: 2,
+			is_string: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for min of 2 and is_string of true on "abc"', () => {
+		var output = rj.validate('abc', {
+			min: 2,
+			is_string: true,
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -426,6 +480,28 @@ describe('validate() output message', () => {
 		}, 'birth date');
 
 		var expected_msg = 'birth date must be a number';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and is_number true on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			is_number: true,
+		});
+
+		var expected_msg = 'The input must be a number';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and is_string true on "foo7bar!@#"', () => {
+		var output = rj.validate(123, {
+			required: true,
+			is_string: true,
+		});
+
+		var expected_msg = 'The input must be a string';
 		
 		assert.equal(output.message, expected_msg);
 	});
