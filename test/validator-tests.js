@@ -136,6 +136,60 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	it('should return valid === true for min of 2 and po_box false on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			po_box: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true for min of 2 and not_po_box false on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			not_po_box: false,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and po_box on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			po_box: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for min of 2 and not_po_box on "foo7bar"', () => {
+		var output = rj.validate('foo7bar', {
+			min: 2,
+			not_po_box: true,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true for min of 2 and po_box on "po box 123"', () => {
+		var output = rj.validate('po box 123', {
+			min: 2,
+			po_box: true,
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for min of 2 and not_po_box on "po box 123"', () => {
+		var output = rj.validate('po box 123', {
+			min: 2,
+			not_po_box: true,
+		});
+		
+		assert.equal(output.valid, false);
+	});
 });
 
 describe('validate() output message', () => {
@@ -283,6 +337,28 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = 'The input may only contain letters or numbers';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and po_box true on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			po_box: true,
+		});
+
+		var expected_msg = 'The input must be a P.O. Box';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and not_po_box true on "po box 123" with custom variable name', () => {
+		var output = rj.validate("po box 123", {
+			required: true,
+			not_po_box: true,
+		}, 'street line 1');
+
+		var expected_msg = 'street line 1 must not be a P.O. Box';
 		
 		assert.equal(output.message, expected_msg);
 	});

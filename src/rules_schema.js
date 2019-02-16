@@ -106,4 +106,44 @@ module.exports = [
 			return rules_tests.alphanumeric(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'po_box',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input must be a P.O. Box';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be a P.O. Box';
+		},
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.po_box === false) {
+				return true;
+			}
+
+			return rules_tests.isPoBox(to_test, rules_arg);
+		}
+	},
+
+	{
+		rule_name: 'not_po_box',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input must not be a P.O. Box';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must not be a P.O. Box';
+		},
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.not_po_box === false) {
+				return true;
+			}
+
+			return !rules_tests.isPoBox(to_test, rules_arg);
+		}
+	},
 ];

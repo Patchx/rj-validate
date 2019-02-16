@@ -100,7 +100,9 @@ rules = {
 	min: (integer),
 	max: (integer),
 	alpha: (true|false),
-	alphanumeric: (true|false)
+	alphanumeric: (true|false),
+	po_box: (true|false),
+	not_po_box: (true|false)
 }
 ```
 
