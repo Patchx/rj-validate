@@ -316,6 +316,24 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	it('should return valid === false for required and is_date on "abc"', () => {
+		var output = rj.validate('abc', {
+			required: true,
+			is_date: 'yyyy-mm-dd',
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for required and is_date:yyyy-mm-dd on "1987-10-01"', () => {
+		var output = rj.validate('1987-10-01', {
+			required: true,
+			is_date: 'yyyy-mm-dd',
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -552,6 +570,29 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = 'not valid email';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and is_date on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			is_date: 'yyyy-mm-dd',
+		});
+
+		var expected_msg = 'The input must be a date';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct custom error message for required and is_date on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			is_date: 'yyyy-mm-dd',
+			is_date_msg: 'not valid date',
+		});
+
+		var expected_msg = 'not valid date';
 		
 		assert.equal(output.message, expected_msg);
 	});

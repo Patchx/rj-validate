@@ -156,6 +156,22 @@ module.exports = [
 	},
 
 	{
+		rule_name: 'is_date',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input must be a date';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be a date';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.isDate(to_test, rules_arg);
+		}
+	},
+
+	{
 		rule_name: 'email',
 
 		no_varname_msg: function(to_test, rules_arg) {

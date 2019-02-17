@@ -104,6 +104,7 @@ rules = {
 	numeric: (true|false|'number'|'string'),
 	is_number: (true|false),
 	is_string: (true|false),
+	is_date: (false|'object'|'yyyy-mm-dd'|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy'|'mm/dd/yy hh:mm:ss'),
 	email: (true|false),
 	po_box: (true|false),
 	not_po_box: (true|false)

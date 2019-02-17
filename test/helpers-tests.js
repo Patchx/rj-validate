@@ -1,6 +1,56 @@
 var assert = require('chai').assert;
 var helpers = require('../src/helpers.js');
 
+describe('isDate', () => {
+	it('should return false for an empty string', () => {
+		assert.isFalse(helpers.isDate(''));
+	});
+
+	it('should return false for a number', () => {
+		assert.isFalse(helpers.isDate(1));
+	});
+
+	it('should return false when no arguments are passed', () => {
+		assert.isFalse(helpers.isDate());
+	});
+
+	it('should return false for null', () => {
+		assert.isFalse(helpers.isDate(null));
+	});
+
+	it('should return false for undefined', () => {
+		assert.isFalse(helpers.isDate(undefined));
+	});
+
+	it('should return false for an empty object', () => {
+		assert.isFalse(helpers.isDate({}));
+	});
+
+	it('should return false for a date string', () => {
+		assert.isFalse(helpers.isDate('October 13, 2014 11:13:00'));
+	});
+
+	it('should return true for a date object created with a date string', () => {
+		assert.isTrue(helpers.isDate(new Date('October 13, 2014 11:13:00')));
+	});
+
+	it('should return true for a date object created with a year-month-day date string', () => {
+		assert.isTrue(helpers.isDate(new Date('1999-12-31')));
+	});
+
+	it('should return true for a date object created with 1 Unix time parameter', () => {
+		assert.isTrue(helpers.isDate(new Date(86400000)));
+	});
+
+	it('should return true for a date object created with multiple parameters', () => {
+		assert.isTrue(helpers.isDate(new Date(1995, 11, 17, 3, 24, 0)));
+	});
+
+	it('should return false for an array', () => {
+		assert.isFalse(helpers.isDate([1, 2, 4, 0]));
+	});
+});
+
 describe('isNumber', () => {
 	it('should return false for an empty object', () => {
 		assert.isFalse(helpers.isNumber({}));
@@ -112,6 +162,188 @@ describe('isString', () => {
 
 	it('should return true if a string object is passed', () => {
 		assert.isTrue(helpers.isString(new String("abc123")));
+	});
+});
+
+describe('makeDateObj', () => {
+	it('should return the correct year for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.year === '2010');
+	});
+
+	it('should return the correct month for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.month === '02');
+	});
+
+	it('should return the correct day for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.day === '14');
+	});
+
+	it('should return the correct hour for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.hour === '00');
+	});
+
+	it('should return the correct minute for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.min === '00');
+	});
+
+	it('should return the correct second for "2010-02-14"', () => {
+		const date_obj = helpers.makeDateObj('2010-02-14');
+		assert.isTrue(date_obj.sec === '00');
+	});
+
+	it('should return the correct year for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.year === '1987');
+	});
+
+	it('should return the correct month for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.month === '10');
+	});
+
+	it('should return the correct day for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.day === '01');
+	});
+
+	it('should return the correct hour for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.hour === '14');
+	});
+
+	it('should return the correct minute for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.min === '30');
+	});
+
+	it('should return the correct second for "1987-10-01 14:30:56"', () => {
+		const date_obj = helpers.makeDateObj('1987-10-01 14:30:56');
+		assert.isTrue(date_obj.sec === '56');
+	});
+
+	it('should return the correct year for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.year === '1995');
+	});
+
+	it('should return the correct month for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.month === '12');
+	});
+
+	it('should return the correct day for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.day === '17');
+	});
+
+	it('should return the correct hour for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.hour === '00');
+	});
+
+	it('should return the correct minute for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.min === '00');
+	});
+
+	it('should return the correct second for "December 17, 1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.sec === '00');
+	});
+
+	it('should return the correct year for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.year === '1995');
+	});
+
+	it('should return the correct month for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.month === '12');
+	});
+
+	it('should return the correct day for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.day === '17');
+	});
+
+	it('should return the correct hour for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.hour === '00');
+	});
+
+	it('should return the correct minute for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.min === '30');
+	});
+
+	it('should return the correct second for "December 17, 1995 00:30:10"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 00:30:10');
+		assert.isTrue(date_obj.sec === '10');
+	});
+
+	it('should return the correct year for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995');
+		assert.isTrue(date_obj.year === '1995');
+	});
+
+	it('should return the correct month for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995');
+		assert.isTrue(date_obj.month === '12');
+	});
+
+	it('should return the correct day for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995');
+		assert.isTrue(date_obj.day === '17');
+	});
+
+	it('should return the correct hour for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995');
+		assert.isTrue(date_obj.hour === '00');
+	});
+
+	it('should return the correct minute for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995');
+		assert.isTrue(date_obj.min === '00');
+	});
+
+	it('should return the correct second for "12/17/1995"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995');
+		assert.isTrue(date_obj.sec === '00');
+	});
+
+	it('should return the correct year for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995 01:20:05');
+		assert.isTrue(date_obj.year === '1995');
+	});
+
+	it('should return the correct month for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995 01:20:05');
+		assert.isTrue(date_obj.month === '12');
+	});
+
+	it('should return the correct day for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995 01:20:05');
+		assert.isTrue(date_obj.day === '17');
+	});
+
+	it('should return the correct hour for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('December 17, 1995 01:20:05');
+		assert.isTrue(date_obj.hour === '01');
+	});
+
+	it('should return the correct minute for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995 01:20:05');
+		assert.isTrue(date_obj.min === '20');
+	});
+
+	it('should return the correct second for "12/17/1995 01:20:05"', () => {
+		const date_obj = helpers.makeDateObj('12/17/1995 01:20:05');
+		assert.isTrue(date_obj.sec === '05');
 	});
 });
 
