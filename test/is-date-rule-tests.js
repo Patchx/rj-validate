@@ -14,18 +14,13 @@ describe('isDate rule on a number', () => {
 });
 
 describe('Should pass isDate rule', () => {
-	it('is a date object with a rule of object', () => {
-		var result = rules.isDate(new Date(), {is_date: 'object'});
+	it('is 2010-10-01 with a rule of true', () => {
+		var result = rules.isDate('2010-10-01', {is_date: true});
 		assert.equal(result, true);
 	});
 
 	it('is 2010-10-01 with a rule of yyyy-mm-dd', () => {
 		var result = rules.isDate('2010-10-01', {is_date: 'yyyy-mm-dd'});
-		assert.equal(result, true);
-	});
-
-	it('is 2010-10-01 03:11:02 with a rule of yyyy-mm-dd hh:mm:ss', () => {
-		var result = rules.isDate('2010-10-01 03:11:02', {is_date: 'yyyy-mm-dd hh:mm:ss'});
 		assert.equal(result, true);
 	});
 
@@ -36,16 +31,6 @@ describe('Should pass isDate rule', () => {
 
 	it('is 10/01/87 with a rule of mm/dd/yy', () => {
 		var result = rules.isDate('10/01/87', {is_date: 'mm/dd/yy'});
-		assert.equal(result, true);
-	});
-
-	it('is 10/01/1987 02:10:00 with a rule of mm/dd/yyyy hh:mm:ss', () => {
-		var result = rules.isDate('10/01/1987 02:10:00', {is_date: 'mm/dd/yyyy hh:mm:ss'});
-		assert.equal(result, true);
-	});
-
-	it('is 10/01/87 02:10:00 with a rule of mm/dd/yy hh:mm:ss', () => {
-		var result = rules.isDate('10/01/87 02:10:00', {is_date: 'mm/dd/yy hh:mm:ss'});
 		assert.equal(result, true);
 	});
 });
@@ -63,6 +48,21 @@ describe('Should fail isDate rule', () => {
 
 	it('is 2010-10-01 03:11:02 with a rule of yyyy-mm-dd', () => {
 		var result = rules.isDate('2010-10-01 03:11:02', {is_date: 'yyyy-mm-dd'});
+		assert.equal(result, false);
+	});
+
+	it('is 10/01/1987 02:10:00 with a rule of mm/dd/yyyy hh:mm:ss', () => {
+		var result = rules.isDate('10/01/1987 02:10:00', {is_date: 'mm/dd/yyyy hh:mm:ss'});
+		assert.equal(result, false);
+	});
+
+	it('is 10/01/87 02:10:00 with a rule of mm/dd/yy hh:mm:ss', () => {
+		var result = rules.isDate('10/01/87 02:10:00', {is_date: 'mm/dd/yy hh:mm:ss'});
+		assert.equal(result, false);
+	});
+
+	it('is 2010-10-01 03:11:02 with a rule of yyyy-mm-dd hh:mm:ss', () => {
+		var result = rules.isDate('2010-10-01 03:11:02', {is_date: 'yyyy-mm-dd hh:mm:ss'});
 		assert.equal(result, false);
 	});
 });

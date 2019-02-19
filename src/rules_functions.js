@@ -53,20 +53,57 @@ module.exports = {
 
 	isDate: function(to_test, rules_arg) {
 		const is_date_arg = rules_arg.is_date;
+		const options = ['yyyy-mm-dd', 'mm/dd/yyyy', 'mm/dd/yy'];
 
 		if (is_date_arg === false) {
 			return true;
 		}
 
-		if (h.isNumber(to_test)) {
+		if (!h.isString(to_test)) {
 			return false;
 		}
 
-		if (is_date_arg === 'object') {
+		if (is_date_arg === true) {
 			return h.isDate(to_test);
 		}
 
-		if (is_date_arg !== 'object' && h.isDate(to_test)) {
+		if (!options.includes(is_date_arg)) {
+			return false;
+		}
+
+		const date_obj = h.makeDateObj(to_test);
+
+		if (is_date_arg.match(/yyyy\-mm\-dd/) !== null) {
+			var date_str = `${date_obj.year}-${date_obj.month}-${date_obj.day}`;
+		}
+
+		if (is_date_arg.match(/mm\/dd\/yyyy/) !== null) {
+			var date_str = `${date_obj.month}/${date_obj.day}/${date_obj.year}`;
+		} else if (is_date_arg.match(/mm\/dd\/yy/) !== null) {
+			const year = date_obj.year.substring(2);
+			var date_str = `${date_obj.month}/${date_obj.day}/${year}`;
+		}
+		
+		return to_test === date_str;
+	},
+
+	isDateTime: function(to_test, rules_arg) {
+		const is_date_arg = rules_arg.is_datetime;
+		const options = ['yyyy-mm-dd hh:mm:ss', 'mm/dd/yyyy hh:mm:ss', 'mm/dd/yy hh:mm:ss'];
+
+		if (is_date_arg === false) {
+			return true;
+		}
+
+		if (!h.isString(to_test)) {
+			return false;
+		}
+
+		if (is_date_arg === true) {
+			return h.isDateTime(to_test);
+		}
+
+		if (!options.includes(is_date_arg)) {
 			return false;
 		}
 
@@ -83,9 +120,7 @@ module.exports = {
 			var date_str = `${date_obj.month}/${date_obj.day}/${year}`;
 		}
 
-		if (is_date_arg.match(/hh\:mm\:ss/) !== null) {
-			date_str += ` ${date_obj.hour}:${date_obj.min}:${date_obj.sec}`;
-		}
+		date_str += ` ${date_obj.hour}:${date_obj.min}:${date_obj.sec}`;
 		
 		return to_test === date_str;
 	},

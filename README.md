@@ -1,4 +1,8 @@
 # rj-validate
+
+<a href="https://snyk.io/test/npm/rj-validate"><img src="https://snyk.io/test/npm/rj-validate/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/npm/rj-validate" style="max-width:100%;"></a>
+
+
 Universal JS Validation Library
 
 https://www.npmjs.com/package/rj-validate
@@ -19,12 +23,18 @@ There are a ton of validation libraries out there. However, many of these librar
 rj-validate was built to be a simple, easy to use validation library that can be used across the stack, regardless of the other javascript frameworks you might be using.
 
 
-## How to use:
+## How to install:
 
-NPM is the recommended way to install this package:
+via npm:
 
 ```npm install rj-validate --save```
 
+via a CDN:
+
+https://cdn.jsdelivr.net/npm/rj-validate@0.4.1/dist/main.min.js
+
+
+## How to use:
 
 Validating an input:
 
@@ -104,7 +114,8 @@ rules = {
 	numeric: (true|false|'number'|'string'),
 	is_number: (true|false),
 	is_string: (true|false),
-	is_date: (false|'object'|'yyyy-mm-dd'|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy'|'mm/dd/yy hh:mm:ss'),
+	is_date: (true|false|'yyyy-mm-dd'|'mm/dd/yyyy'|'mm/dd/yy'),
+	is_datetime: (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
 	email: (true|false),
 	po_box: (true|false),
 	not_po_box: (true|false)

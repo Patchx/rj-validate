@@ -36,6 +36,14 @@ describe('validate() parameter checking', () => {
 		);
 	});
 
+	it('should throw an error if the value to test is a date object', () => {
+		assert.throw(
+			() => {rj.validate(new Date('2018-01-02'), {})}, 
+			Error, 
+			"Invalid test parameter"
+		);
+	});
+
 	it('should throw an error if the value to test is an array', () => {
 		assert.throw(
 			() => {rj.validate([], {})}, 
@@ -334,6 +342,15 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	it('should return valid === true for required and is_datetime:yyyy-mm-dd hh:mm:ss on "1987-10-01 12:31:01"', () => {
+		var output = rj.validate('1987-10-01 12:31:01', {
+			required: true,
+			is_datetime: 'yyyy-mm-dd hh:mm:ss',
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -593,6 +610,17 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = 'not valid date';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and is_datetime on "foo7bar!@#"', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			is_datetime: 'yyyy-mm-dd',
+		});
+
+		var expected_msg = 'The input must be a datetime';
 		
 		assert.equal(output.message, expected_msg);
 	});

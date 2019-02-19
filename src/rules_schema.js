@@ -172,6 +172,22 @@ module.exports = [
 	},
 
 	{
+		rule_name: 'is_datetime',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'The input must be a datetime';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be a datetime';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.isDateTime(to_test, rules_arg);
+		}
+	},
+
+	{
 		rule_name: 'email',
 
 		no_varname_msg: function(to_test, rules_arg) {
