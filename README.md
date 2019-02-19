@@ -31,7 +31,7 @@ via npm:
 
 via a CDN:
 
-https://cdn.jsdelivr.net/npm/rj-validate@0.4.1/dist/main.min.js
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.2/dist/main.min.js"></script>```
 
 
 ## How to use:
