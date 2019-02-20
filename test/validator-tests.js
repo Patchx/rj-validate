@@ -244,55 +244,55 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, false);
 	});
 
-	it('should return valid === true for min of 2 and is_number of false on "abc"', () => {
+	it('should return valid === true for min of 2 and number of false on "abc"', () => {
 		var output = rj.validate('abc', {
 			min: 2,
-			is_number: false,
+			number: false,
 		});
 		
 		assert.equal(output.valid, true);
 	});
 
-	it('should return valid === false for min of 2 and is_number of true on "abc"', () => {
+	it('should return valid === false for min of 2 and number of true on "abc"', () => {
 		var output = rj.validate('abc', {
 			min: 2,
-			is_number: true,
+			number: true,
 		});
 		
 		assert.equal(output.valid, false);
 	});
 
-	it('should return valid === true for min of 2 and is_number of true on 123', () => {
+	it('should return valid === true for min of 2 and number of true on 123', () => {
 		var output = rj.validate(123, {
 			min: 2,
-			is_number: true,
+			number: true,
 		});
 		
 		assert.equal(output.valid, true);
 	});
 
-	it('should return valid === true for min of 2 and is_string of false on 123', () => {
+	it('should return valid === true for min of 2 and string of false on 123', () => {
 		var output = rj.validate(123, {
 			min: 2,
-			is_string: false,
+			string: false,
 		});
 		
 		assert.equal(output.valid, true);
 	});
 
-	it('should return valid === false for min of 2 and is_string of true on 123', () => {
+	it('should return valid === false for min of 2 and string of true on 123', () => {
 		var output = rj.validate(123, {
 			min: 2,
-			is_string: true,
+			string: true,
 		});
 		
 		assert.equal(output.valid, false);
 	});
 
-	it('should return valid === true for min of 2 and is_string of true on "abc"', () => {
+	it('should return valid === true for min of 2 and string of true on "abc"', () => {
 		var output = rj.validate('abc', {
 			min: 2,
-			is_string: true,
+			string: true,
 		});
 		
 		assert.equal(output.valid, true);
@@ -325,28 +325,28 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, true);
 	});
 
-	it('should return valid === false for required and is_date on "abc"', () => {
+	it('should return valid === false for required and date on "abc"', () => {
 		var output = rj.validate('abc', {
 			required: true,
-			is_date: 'yyyy-mm-dd',
+			date: 'yyyy-mm-dd',
 		});
 		
 		assert.equal(output.valid, false);
 	});
 
-	it('should return valid === true for required and is_date:yyyy-mm-dd on "1987-10-01"', () => {
+	it('should return valid === true for required and date:yyyy-mm-dd on "1987-10-01"', () => {
 		var output = rj.validate('1987-10-01', {
 			required: true,
-			is_date: 'yyyy-mm-dd',
+			date: 'yyyy-mm-dd',
 		});
 		
 		assert.equal(output.valid, true);
 	});
 
-	it('should return valid === true for required and is_datetime:yyyy-mm-dd hh:mm:ss on "1987-10-01 12:31:01"', () => {
+	it('should return valid === true for required and datetime:yyyy-mm-dd hh:mm:ss on "1987-10-01 12:31:01"', () => {
 		var output = rj.validate('1987-10-01 12:31:01', {
 			required: true,
-			is_datetime: 'yyyy-mm-dd hh:mm:ss',
+			datetime: 'yyyy-mm-dd hh:mm:ss',
 		});
 		
 		assert.equal(output.valid, true);
@@ -546,10 +546,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct error message for required and is_number true on "foo7bar!@#"', () => {
+	it('should return the correct error message for required and number true on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
-			is_number: true,
+			number: true,
 		});
 
 		var expected_msg = 'The input must be a number';
@@ -557,10 +557,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct error message for required and is_string true on 123', () => {
+	it('should return the correct error message for required and string true on 123', () => {
 		var output = rj.validate(123, {
 			required: true,
-			is_string: true,
+			string: true,
 		});
 
 		var expected_msg = 'The input must be a string';
@@ -591,10 +591,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct error message for required and is_date on "foo7bar!@#"', () => {
+	it('should return the correct error message for required and date on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
-			is_date: 'yyyy-mm-dd',
+			date: 'yyyy-mm-dd',
 		});
 
 		var expected_msg = 'The input must be a date';
@@ -602,11 +602,11 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct custom error message for required and is_date on "foo7bar!@#"', () => {
+	it('should return the correct custom error message for required and date on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
-			is_date: 'yyyy-mm-dd',
-			is_date_msg: 'not valid date',
+			date: 'yyyy-mm-dd',
+			date_msg: 'not valid date',
 		});
 
 		var expected_msg = 'not valid date';
@@ -614,10 +614,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
-	it('should return the correct error message for required and is_datetime on "foo7bar!@#"', () => {
+	it('should return the correct error message for required and datetime on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
-			is_datetime: 'yyyy-mm-dd',
+			datetime: 'yyyy-mm-dd',
 		});
 
 		var expected_msg = 'The input must be a datetime';

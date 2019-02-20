@@ -31,7 +31,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.2/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.3/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -107,15 +107,15 @@ Currently available validation options:
 ```javascript
 rules = {
 	required: (true|false),
-	min: (integer),
-	max: (integer),
+	min: (integer|false),
+	max: (integer|false),
 	alpha: (true|false),
 	alphanumeric: (true|false),
 	numeric: (true|false|'number'|'string'),
-	is_number: (true|false),
-	is_string: (true|false),
-	is_date: (true|false|'yyyy-mm-dd'|'mm/dd/yyyy'|'mm/dd/yy'),
-	is_datetime: (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
+	number: (true|false),
+	string: (true|false),
+	date: (true|false|'yyyy-mm-dd'|'mm/dd/yyyy'|'mm/dd/yy'),
+	datetime: (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
 	email: (true|false),
 	po_box: (true|false),
 	not_po_box: (true|false)

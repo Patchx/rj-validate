@@ -40,6 +40,11 @@ describe('Min rule on a number', () => {
 });
 
 describe('Min rule on a string', () => {
+	it('should return true for "" on a min of false', () => {
+		var result = rules.min('', {min: false});
+		assert.equal(result, true);
+	});
+
 	it('should return an error for "" on a min of undefined', () => {
 		assert.throw(
 			() => {rules.min('', {min: undefined})}, 

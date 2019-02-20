@@ -124,7 +124,7 @@ module.exports = [
 	},
 
 	{
-		rule_name: 'is_number',
+		rule_name: 'number',
 
 		no_varname_msg: function(to_test, rules_arg) {
 			return 'The input must be a number';
@@ -140,7 +140,7 @@ module.exports = [
 	},
 
 	{
-		rule_name: 'is_string',
+		rule_name: 'string',
 
 		no_varname_msg: function(to_test, rules_arg) {
 			return 'The input must be a string';
@@ -156,7 +156,7 @@ module.exports = [
 	},
 
 	{
-		rule_name: 'is_date',
+		rule_name: 'date',
 
 		no_varname_msg: function(to_test, rules_arg) {
 			return 'The input must be a date';
@@ -172,7 +172,7 @@ module.exports = [
 	},
 
 	{
-		rule_name: 'is_datetime',
+		rule_name: 'datetime',
 
 		no_varname_msg: function(to_test, rules_arg) {
 			return 'The input must be a datetime';

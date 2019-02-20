@@ -52,10 +52,10 @@ module.exports = {
 	},
 
 	isDate: function(to_test, rules_arg) {
-		const is_date_arg = rules_arg.is_date;
+		const date_arg = rules_arg.date;
 		const options = ['yyyy-mm-dd', 'mm/dd/yyyy', 'mm/dd/yy'];
 
-		if (is_date_arg === false) {
+		if (date_arg === false) {
 			return true;
 		}
 
@@ -63,23 +63,23 @@ module.exports = {
 			return false;
 		}
 
-		if (is_date_arg === true) {
+		if (date_arg === true) {
 			return h.isDate(to_test);
 		}
 
-		if (!options.includes(is_date_arg)) {
+		if (!options.includes(date_arg)) {
 			return false;
 		}
 
 		const date_obj = h.makeDateObj(to_test);
 
-		if (is_date_arg.match(/yyyy\-mm\-dd/) !== null) {
+		if (date_arg.match(/yyyy\-mm\-dd/) !== null) {
 			var date_str = `${date_obj.year}-${date_obj.month}-${date_obj.day}`;
 		}
 
-		if (is_date_arg.match(/mm\/dd\/yyyy/) !== null) {
+		if (date_arg.match(/mm\/dd\/yyyy/) !== null) {
 			var date_str = `${date_obj.month}/${date_obj.day}/${date_obj.year}`;
-		} else if (is_date_arg.match(/mm\/dd\/yy/) !== null) {
+		} else if (date_arg.match(/mm\/dd\/yy/) !== null) {
 			const year = date_obj.year.substring(2);
 			var date_str = `${date_obj.month}/${date_obj.day}/${year}`;
 		}
@@ -88,10 +88,10 @@ module.exports = {
 	},
 
 	isDateTime: function(to_test, rules_arg) {
-		const is_date_arg = rules_arg.is_datetime;
+		const date_arg = rules_arg.datetime;
 		const options = ['yyyy-mm-dd hh:mm:ss', 'mm/dd/yyyy hh:mm:ss', 'mm/dd/yy hh:mm:ss'];
 
-		if (is_date_arg === false) {
+		if (date_arg === false) {
 			return true;
 		}
 
@@ -99,23 +99,23 @@ module.exports = {
 			return false;
 		}
 
-		if (is_date_arg === true) {
+		if (date_arg === true) {
 			return h.isDateTime(to_test);
 		}
 
-		if (!options.includes(is_date_arg)) {
+		if (!options.includes(date_arg)) {
 			return false;
 		}
 
 		const date_obj = h.makeDateObj(to_test);
 
-		if (is_date_arg.match(/yyyy\-mm\-dd/) !== null) {
+		if (date_arg.match(/yyyy\-mm\-dd/) !== null) {
 			var date_str = `${date_obj.year}-${date_obj.month}-${date_obj.day}`;
 		}
 
-		if (is_date_arg.match(/mm\/dd\/yyyy/) !== null) {
+		if (date_arg.match(/mm\/dd\/yyyy/) !== null) {
 			var date_str = `${date_obj.month}/${date_obj.day}/${date_obj.year}`;
-		} else if (is_date_arg.match(/mm\/dd\/yy/) !== null) {
+		} else if (date_arg.match(/mm\/dd\/yy/) !== null) {
 			const year = date_obj.year.substring(2);
 			var date_str = `${date_obj.month}/${date_obj.day}/${year}`;
 		}
@@ -154,7 +154,7 @@ module.exports = {
 	},
 
 	isNumber: function(to_test, rules_arg) {
-		if (rules_arg.is_number === false) {
+		if (rules_arg.number === false) {
 			return true;
 		}
 
@@ -162,7 +162,7 @@ module.exports = {
 	},
 
 	isString: function(to_test, rules_arg) {
-		if (rules_arg.is_string === false) {
+		if (rules_arg.string === false) {
 			return true;
 		}
 
@@ -172,6 +172,10 @@ module.exports = {
 
 	max: function(to_test, rules_arg) {
 		var max = rules_arg.max;
+
+		if (rules_arg.max === false) {
+			return true;
+		}
 
 		if (max === undefined || max === null) {
 			throw new Error('Max not set');
@@ -186,6 +190,10 @@ module.exports = {
 
 	min: function(to_test, rules_arg) {
 		var min = rules_arg.min;
+
+		if (rules_arg.min === false) {
+			return true;
+		}
 
 		if (min === undefined || min === null) {
 			throw new Error('Min not set');

@@ -40,6 +40,11 @@ describe('Max rule on a number', () => {
 });
 
 describe('Max rule on a string', () => {
+	it('should return true for "" on a max of false', () => {
+		var result = rules.max('', {max: false});
+		assert.equal(result, true);
+	});
+
 	it('should return an error for "" on a max of undefined', () => {
 		assert.throw(
 			() => {rules.max('', {max: undefined})}, 
