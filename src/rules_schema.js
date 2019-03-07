@@ -39,7 +39,7 @@ module.exports = [
 			}
 
 			if (!h.isObject(rules_arg.same)) {
-				throw new Error("Rules must be an object");
+				throw new Error("The same rule must be an object");
 			}
 
 			const value = rules_arg.same.value;

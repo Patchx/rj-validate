@@ -150,6 +150,16 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, false);
 	});
 
+	it('should throw an error if the same rule is not an object', () => {
+		assert.throw(
+			() => {
+				rj.validate(12.34, {same: 'abc123'});
+			}, 
+			Error, 
+			"The same rule must be an object"
+		);
+	});
+
 	// ------------
 	// - min rule -
 	// ------------
