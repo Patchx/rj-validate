@@ -20,6 +20,35 @@ module.exports = [
 	},
 
 	{
+		rule_name: 'same',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			const name = rules_arg.same.name;
+			return 'The input must be the same as ' + name;
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			const name = rules_arg.same.name;
+			return var_name + ' must be the same as ' + name;
+		},
+
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.same === false) {
+				return true;
+			}
+
+			if (!h.isObject(rules_arg.same)) {
+				throw new Error("Rules must be an object");
+			}
+
+			const value = rules_arg.same.value;
+
+			return to_test === value;
+		},
+	},
+
+	{
 		rule_name: 'min',
 
 		no_varname_msg: function(to_test, rules_arg) {

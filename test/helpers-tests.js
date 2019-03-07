@@ -1,6 +1,52 @@
 var assert = require('chai').assert;
 var helpers = require('../src/helpers.js');
 
+describe('isBoolean', () => {
+	it('should return false for an empty object', () => {
+		assert.isFalse(helpers.isBoolean({}));
+	});
+
+	it('should return false for an object', () => {
+		assert.isFalse(helpers.isBoolean({foo: 'bar'}));
+	});
+
+	it('should return false for an empty array', () => {
+		assert.isFalse(helpers.isBoolean([]));
+	});
+
+	it('should return false if no argument passed', () => {
+		assert.isFalse(helpers.isBoolean());
+	});
+
+	it('should return false if a number is passed', () => {
+		assert.isFalse(helpers.isBoolean(1));
+	});
+
+	it('should return false if a number object is passed', () => {
+		assert.isFalse(helpers.isBoolean(new Number(1)));
+	});
+
+	it('should return false if a string is passed', () => {
+		assert.isFalse(helpers.isBoolean('abc123'));
+	});
+
+	it('should return false if a string object is passed', () => {
+		assert.isFalse(helpers.isBoolean(new String("abc123")));
+	});
+
+	it('should return false if a function is passed', () => {
+		assert.isFalse(helpers.isBoolean(function(){}));
+	});
+
+	it('should return true if true is passed', () => {
+		assert.isTrue(helpers.isBoolean(true));
+	});
+
+	it('should return true if false is passed', () => {
+		assert.isTrue(helpers.isBoolean(false));
+	});
+});
+
 describe('isDate', () => {
 	it('should return false for an empty string', () => {
 		assert.isFalse(helpers.isDate(''));

@@ -107,6 +107,10 @@ Currently available validation options:
 ```javascript
 rules = {
 	required: (true|false),
+	same: {
+		name: (string),
+		value: (string|number|boolean)
+	},
 	min: (integer|false),
 	max: (integer|false),
 	alpha: (true|false),

@@ -33,6 +33,7 @@ function makeFailureMsg(inputs) {
 function validTestParam(test_param) {
 	return h.isNumber(test_param) 
 		   || h.isString(test_param) 
+		   || h.isBoolean(test_param)
 		   || test_param === null 
 		   || test_param === undefined;
 }

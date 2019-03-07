@@ -62,6 +62,10 @@ describe('validate() parameter checking', () => {
 });
 
 describe('validate() valid flag', () => {
+	// -----------------
+	// - required rule -
+	// -----------------
+
 	it('should return valid === true if required is set to false', () => {
 		var output = rj.validate(undefined, {required: false});
 		assert.equal(output.valid, true);
@@ -107,6 +111,49 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, true);
 	});
 
+	// -------------
+	// - same rule -
+	// -------------
+
+	it('should return valid === true if same is set to false', () => {
+		var output = rj.validate(undefined, {same: false});
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true if same.value is the same string as the value to test', () => {
+		var same_rule = {
+			name: 'test_var',
+			value: 'abc123',
+		};
+
+		var output = rj.validate('abc123', {same: same_rule});
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === true if same.value is the same float as the value to test', () => {
+		var same_rule = {
+			name: 'test_var',
+			value: 12.34,
+		};
+
+		var output = rj.validate(12.34, {same: same_rule});
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false if same.value is a different float as the value to test', () => {
+		var same_rule = {
+			name: 'test_var',
+			value: 12.34,
+		};
+
+		var output = rj.validate(12.34001, {same: same_rule});
+		assert.equal(output.valid, false);
+	});
+
+	// ------------
+	// - min rule -
+	// ------------
+
 	it('should return valid === true for required and a min of 2 on "foobar"', () => {
 		var output = rj.validate('foobar', {
 			required: true,
@@ -144,6 +191,10 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, false);
 	});
+
+	// ---------------
+	// - po_box rule -
+	// ---------------
 
 	it('should return valid === true for min of 2 and po_box false on "foo7bar"', () => {
 		var output = rj.validate('foo7bar', {
@@ -199,6 +250,10 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, false);
 	});
 
+	// -----------
+	// - numeric -
+	// -----------
+
 	it('should return valid === true for min of 2 and numeric false on "foo7bar"', () => {
 		var output = rj.validate('foo7bar', {
 			min: 2,
@@ -244,6 +299,10 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, false);
 	});
 
+	// ---------------
+	// - number rule -
+	// ---------------
+
 	it('should return valid === true for min of 2 and number of false on "abc"', () => {
 		var output = rj.validate('abc', {
 			min: 2,
@@ -270,6 +329,10 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	// ---------------
+	// - string rule -
+	// ---------------
 
 	it('should return valid === true for min of 2 and string of false on 123', () => {
 		var output = rj.validate(123, {
@@ -298,6 +361,10 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, true);
 	});
 
+	// --------------
+	// - email rule -
+	// --------------
+
 	it('should return valid === true for min of 2 and email:false on "abc"', () => {
 		var output = rj.validate('abc', {
 			min: 2,
@@ -325,6 +392,10 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, true);
 	});
 
+	// -------------
+	// - date rule -
+	// -------------
+
 	it('should return valid === false for required and date on "abc"', () => {
 		var output = rj.validate('abc', {
 			required: true,
@@ -343,6 +414,10 @@ describe('validate() valid flag', () => {
 		assert.equal(output.valid, true);
 	});
 
+	// -----------------
+	// - datetime rule -
+	// -----------------
+
 	it('should return valid === true for required and datetime:yyyy-mm-dd hh:mm:ss on "1987-10-01 12:31:01"', () => {
 		var output = rj.validate('1987-10-01 12:31:01', {
 			required: true,
@@ -354,6 +429,10 @@ describe('validate() valid flag', () => {
 });
 
 describe('validate() output message', () => {
+	// -----------------
+	// - required rule -
+	// -----------------
+
 	it('should return the correct failure message for required on an empty string', () => {
 		var expected_msg = 'The input cannot be blank';
 		var actual_msg = rj.validate('', {required: true}).message;
@@ -396,6 +475,42 @@ describe('validate() output message', () => {
 		assert.equal(actual_msg, expected_msg);
 	});
 
+	// -------------
+	// - same rule -
+	// -------------
+
+	it('should return the correct error message for same rule on different values', () => {
+		var same_rule = {
+			name: 'test_var',
+			value: 'abc123',
+		};
+
+		var expected_msg = 'The input must be the same as test_var';
+		var actual_msg = rj.validate('foobar', {same: same_rule}).message;
+		assert.equal(expected_msg, actual_msg);
+	});
+
+	it('should return the correct error message for same rule on different values, with a custom variable name', () => {
+		var same_rule = {
+			name: 'second_var',
+			value: 'abc123',
+		};
+
+		var expected_msg = 'first_var must be the same as second_var';
+		
+		var actual_msg = rj.validate(
+			'foobar', 
+			{same: same_rule},
+			'first_var'
+		).message;
+		
+		assert.equal(expected_msg, actual_msg);
+	});
+
+	// ------------
+	// - min rule -
+	// ------------
+
 	it('should return the correct error message for required and a min of 7 on "foobar"', () => {
 		var output = rj.validate('foobar', {
 			required: true,
@@ -430,6 +545,10 @@ describe('validate() output message', () => {
 		
 		assert.equal(output.message, expected_msg);
 	});
+
+	// ------------
+	// - max rule -
+	// ------------
 
 	it('should return the correct error message for required, a min of 2 and a max of 5 on "foobar"', () => {
 		var output = rj.validate('foobar', {
@@ -479,6 +598,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// --------------
+	// - alpha rule -
+	// --------------
+
 	it('should return the correct error message for required, a min of 5 and alpha on "foo7bar"', () => {
 		var output = rj.validate("foo7bar", {
 			required: true,
@@ -491,6 +614,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// ---------------------
+	// - alphanumeric rule -
+	// ---------------------
+
 	it('should return the correct error message for required and alphanumeric on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
@@ -501,6 +628,10 @@ describe('validate() output message', () => {
 		
 		assert.equal(output.message, expected_msg);
 	});
+
+	// ---------------
+	// - po_box rule -
+	// ---------------
 
 	it('should return the correct error message for required and po_box true on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
@@ -524,6 +655,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// ----------------
+	// - numeric rule -
+	// ----------------
+
 	it('should return the correct error message for required and numeric true on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
@@ -546,6 +681,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// ---------------
+	// - number rule -
+	// ---------------
+
 	it('should return the correct error message for required and number true on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
@@ -557,6 +696,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// ---------------
+	// - string rule -
+	// ---------------
+
 	it('should return the correct error message for required and string true on 123', () => {
 		var output = rj.validate(123, {
 			required: true,
@@ -567,6 +710,10 @@ describe('validate() output message', () => {
 		
 		assert.equal(output.message, expected_msg);
 	});
+
+	// --------------
+	// - email rule -
+	// --------------
 
 	it('should return the correct error message for required and email on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
@@ -591,6 +738,10 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// -------------
+	// - date rule -
+	// -------------
+
 	it('should return the correct error message for required and date on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {
 			required: true,
@@ -613,6 +764,10 @@ describe('validate() output message', () => {
 		
 		assert.equal(output.message, expected_msg);
 	});
+
+	// -----------------
+	// - datetime rule -
+	// -----------------
 
 	it('should return the correct error message for required and datetime on "foo7bar!@#"', () => {
 		var output = rj.validate("foo7bar!@#", {

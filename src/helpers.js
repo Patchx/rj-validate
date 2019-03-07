@@ -40,6 +40,10 @@ function makeDateObject(input) {
 // -----------
 
 module.exports = {
+	isBoolean: function(input) {
+		return Object.prototype.toString.call(input) === '[object Boolean]';
+	},
+
 	isDate: function(input) {
 		if (Object.prototype.toString.call(input) === '[object Date]') {
 			return true;
