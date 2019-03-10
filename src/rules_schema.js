@@ -372,4 +372,20 @@ module.exports = [
 			return rules_tests.beforeOr(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'after',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter a date after ' + rules_arg.after.toString();
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be after ' + rules_arg.after.toString();
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.after(to_test, rules_arg);
+		}
+	},
 ];

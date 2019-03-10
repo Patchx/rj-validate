@@ -124,7 +124,8 @@ rules = {
 	in:               (array|object|false),
 	not_in:           (array|object|false),
 	before:           (string|Date|false),
-	before_or:        (string|Date|false)
+	before_or:        (string|Date|false),
+	after:            (string|Date|false)
 }
 ```
 
