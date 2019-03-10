@@ -300,4 +300,44 @@ module.exports = [
 			return !rules_tests.isPoBox(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'in',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter a valid option';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' is not a valid option';
+		},
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.in === false) {
+				return true;
+			}
+
+			return rules_tests.in(to_test, rules_arg);
+		}
+	},
+
+	{
+		rule_name: 'not_in',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'That option is not allowed';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' is not a valid option';
+		},
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.not_in === false) {
+				return true;
+			}
+
+			return rules_tests.notIn(to_test, rules_arg);
+		}
+	},
 ];

@@ -2,6 +2,25 @@
 // - Private Functions -
 // ---------------------
 
+function isArray(input) {
+	return Object.prototype.toString.call(input) === '[object Array]';
+}
+
+function isObject(input) {
+	const object_type = Object.prototype.toString.call(input);
+
+	const invalid_types = [
+		'[object Undefined]',
+		'[object Boolean]',
+		'[object Number]',
+		'[object String]',
+		'[object Array]',
+		'[object Function]',
+	];
+
+	return invalid_types.indexOf(object_type) === -1;
+}
+
 function makeDateObject(input) {
 	if (input.match(/\:/) === null) {
 		// To deal with timezone issues
@@ -40,6 +59,18 @@ function makeDateObject(input) {
 // -----------
 
 module.exports = {
+	inArray: function(needle, haystack) {
+		if (!isArray(haystack)) {
+			throw new Error("Second parameter to inArray() must be an array");
+		}
+
+		return haystack.indexOf(needle) !== -1;
+	},
+
+	isArray: function(input) {
+		return isArray(input);
+	},
+
 	isBoolean: function(input) {
 		return Object.prototype.toString.call(input) === '[object Boolean]';
 	},
@@ -101,7 +132,7 @@ module.exports = {
 	},
 
 	isObject: function(input) {
-		return Object.prototype.toString.call(input) === '[object Object]';
+		return isObject(input);
 	},
 
 	isString: function(input) {
@@ -113,7 +144,7 @@ module.exports = {
 	},
 
 	objIsEmpty: function(input) {
-		if (!this.isObject(input)) {
+		if (!isObject(input)) {
 			throw new Error("Not an object");
 		}
 

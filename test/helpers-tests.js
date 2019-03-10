@@ -1,6 +1,90 @@
 var assert = require('chai').assert;
 var helpers = require('../src/helpers.js');
 
+describe('inArray', () => {
+	it('should throw an error if no arguments passed to inArray()', () => {
+		assert.throw(
+			() => {helpers.inArray()}, 
+			Error, 
+			"Second parameter to inArray() must be an array"
+		);
+	});
+
+	it('should throw an error if only 1 argument passed to inArray()', () => {
+		assert.throw(
+			() => {helpers.inArray(1)}, 
+			Error, 
+			"Second parameter to inArray() must be an array"
+		);
+	});
+
+	it('should throw an error if the 2nd argument passed to inArray() is not an array', () => {
+		assert.throw(
+			() => {helpers.inArray(1, {})}, 
+			Error, 
+			"Second parameter to inArray() must be an array"
+		);
+	});
+
+	it('should return true for "a" in the array ["1", "a", "$"]', () => {
+		assert.isTrue(helpers.inArray("a", ["1", "a", "$"]));
+	});
+
+	it('should return false for "a" in the array ["1", "b", "$"]', () => {
+		assert.isFalse(helpers.inArray("a", ["1", "b", "$"]));
+	});
+});
+
+describe('isArray', () => {
+	it('should return false for an empty object', () => {
+		assert.isFalse(helpers.isArray({}));
+	});
+
+	it('should return false for an object', () => {
+		assert.isFalse(helpers.isArray({foo: 'bar'}));
+	});
+
+	it('should return true for an empty array', () => {
+		assert.isTrue(helpers.isArray([]));
+	});
+
+	it('should return true for an array', () => {
+		assert.isTrue(helpers.isArray([1, 2, 'abc', {}]));
+	});
+
+	it('should return false if no argument passed', () => {
+		assert.isFalse(helpers.isArray());
+	});
+
+	it('should return false if a number is passed', () => {
+		assert.isFalse(helpers.isArray(1));
+	});
+
+	it('should return false if a number object is passed', () => {
+		assert.isFalse(helpers.isArray(new Number(1)));
+	});
+
+	it('should return false if a string is passed', () => {
+		assert.isFalse(helpers.isArray('abc123'));
+	});
+
+	it('should return false if a string object is passed', () => {
+		assert.isFalse(helpers.isArray(new String("abc123")));
+	});
+
+	it('should return false if a function is passed', () => {
+		assert.isFalse(helpers.isArray(function(){}));
+	});
+
+	it('should return false if true is passed', () => {
+		assert.isFalse(helpers.isArray(true));
+	});
+
+	it('should return false if false is passed', () => {
+		assert.isFalse(helpers.isArray(false));
+	});
+});
+
 describe('isBoolean', () => {
 	it('should return false for an empty object', () => {
 		assert.isFalse(helpers.isBoolean({}));
@@ -170,6 +254,35 @@ describe('isObject', () => {
 
 	it('should return false if a function is passed', () => {
 		assert.isFalse(helpers.isObject(function(){}));
+	});
+
+	it('should return true for a date object created with a date string', () => {
+		assert.isTrue(helpers.isObject(new Date('October 13, 2014 11:13:00')));
+	});
+
+	it('should return true for a object in a prototype chain', () => {
+		function Graph() {
+			this.vertices = [];
+			this.edges = [];
+		}
+
+		Graph.prototype = {
+			addVertex: function(v) {
+				this.vertices.push(v);
+			}
+		};
+
+		var graph = new Graph();
+
+		assert.isTrue(helpers.isObject(graph));
+	});
+
+	it('should return true for a object in an Object.create() prototype chain', () => {
+		var a = {a: 1}; 
+		var b = Object.create(a);
+		var c = Object.create(b);
+
+		assert.isTrue(helpers.isObject(c));
 	});
 });
 

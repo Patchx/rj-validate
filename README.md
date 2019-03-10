@@ -31,7 +31,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.4/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.5.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -126,7 +126,9 @@ rules = {
 	datetime: (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
 	email: (true|false),
 	po_box: (true|false),
-	not_po_box: (true|false)
+	not_po_box: (true|false),
+	in: (array|object|false),
+	not_in: (array|object|false)
 }
 ```
 

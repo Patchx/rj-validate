@@ -51,6 +51,24 @@ module.exports = {
 	    return regex_result[0] === to_test;
 	},
 
+	in: function(to_test, rules_arg) {
+		const in_param = rules_arg.in;
+
+		if (in_param === false) {
+			return true;
+		}
+
+		if (h.isArray(in_param)) {
+			return h.inArray(to_test, in_param);
+		}
+
+		if (h.isObject(in_param)) {
+			return in_param[to_test] !== undefined;
+		}
+
+		throw new Error('argument supplied to "in" rule must be either an array or an object');
+	},
+
 	isDate: function(to_test, rules_arg) {
 		const date_arg = rules_arg.date;
 		const options = ['yyyy-mm-dd', 'mm/dd/yyyy', 'mm/dd/yy'];
@@ -204,6 +222,24 @@ module.exports = {
 		}
 
 		return to_test.length >= min;
+	},
+
+	notIn: function(to_test, rules_arg) {
+		const in_param = rules_arg.not_in;
+
+		if (in_param === false) {
+			return true;
+		}
+
+		if (h.isArray(in_param)) {
+			return !h.inArray(to_test, in_param);
+		}
+
+		if (h.isObject(in_param)) {
+			return in_param[to_test] === undefined;
+		}
+
+		throw new Error('argument supplied to "not_in" rule must be either an array or an object');
 	},
 
 	numeric: function(to_test, rules_arg) {

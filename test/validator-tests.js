@@ -59,6 +59,26 @@ describe('validate() parameter checking', () => {
 			"Invalid test parameter"
 		);
 	});
+
+	// -------------------------
+	// - Specific rules errors -
+	// -------------------------
+
+	it('should throw an error if the value of "in" is not an array or object', () => {
+		assert.throw(
+			() => {rj.validate("foo", {in: "foo"})}, 
+			Error, 
+			'argument supplied to "in" rule must be either an array or an object'
+		);
+	});
+
+	it('should throw an error if the value of "not_in" is not an array or object', () => {
+		assert.throw(
+			() => {rj.validate("foo", {not_in: "foo"})}, 
+			Error, 
+			'argument supplied to "not_in" rule must be either an array or an object'
+		);
+	});
 });
 
 describe('validate() valid flag', () => {
@@ -436,6 +456,78 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	// -----------
+	// - in rule -
+	// -----------
+
+	it('should return valid === true for "foo" in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foo", {
+			in: ["foo", "bar", "baz"],
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for "foot" in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foot", {
+			in: ["foo", "bar", "baz"],
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for "foo" in {"foo": 1, "bar": 2, "baz": 3}', () => {
+		var output = rj.validate("foo", {
+			in: {"foo": 1, "bar": 2, "baz": 3},
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for "foot" in {"foo": 1, "bar": 2, "baz": 3}', () => {
+		var output = rj.validate("foot", {
+			in: {"foo": 1, "bar": 2, "baz": 3},
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	// ---------------
+	// - not_in rule -
+	// ---------------
+
+	it('should return valid === false for "foo" not_in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foo", {
+			not_in: ["foo", "bar", "baz"],
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for "foot" not_in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foot", {
+			not_in: ["foo", "bar", "baz"],
+		});
+		
+		assert.equal(output.valid, true);
+	});
+
+	it('should return valid === false for "foo" not_in {"foo": 1, "bar": 2, "baz": 3}', () => {
+		var output = rj.validate("foo", {
+			not_in: {"foo": 1, "bar": 2, "baz": 3},
+		});
+		
+		assert.equal(output.valid, false);
+	});
+
+	it('should return valid === true for "foot" not_in {"foo": 1, "bar": 2, "baz": 3}', () => {
+		var output = rj.validate("foot", {
+			not_in: {"foo": 1, "bar": 2, "baz": 3},
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -489,6 +581,11 @@ describe('validate() output message', () => {
 	// - same rule -
 	// -------------
 
+	it('should return valid:true for same rule of false', () => {
+		var is_valid = rj.validate('abc123', {same: false}).valid;
+		assert.equal(is_valid, true);
+	});
+
 	it('should return valid:true for same rule on same values', () => {
 		var same_rule = {
 			name: 'test_var',
@@ -528,6 +625,11 @@ describe('validate() output message', () => {
 	// ------------------
 	// - different rule -
 	// ------------------
+
+	it('should return valid:true for different rule of false', () => {
+		var is_valid = rj.validate('abc123', {different: false}).valid;
+		assert.equal(is_valid, true);
+	});
 
 	it('should return valid:true for different rule on different values', () => {
 		var different_rule = {
@@ -860,6 +962,54 @@ describe('validate() output message', () => {
 		});
 
 		var expected_msg = 'Please enter a valid date and time';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	// -----------
+	// - in rule -
+	// -----------
+
+	it('should return the correct error message for "foot" in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foot", {
+			in: ["foo", "bar", "baz"],
+		});
+
+		var expected_msg = 'Please enter a valid option';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for "foot" in ["foo", "bar", "baz"] with a custom variable name', () => {
+		var output = rj.validate("foot", {
+			in: ["foo", "bar", "baz"],
+		}, "Nickname");
+
+		var expected_msg = 'Nickname is not a valid option';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	// ---------------
+	// - not_in rule -
+	// ---------------
+
+	it('should return the correct error message for "foo" in ["foo", "bar", "baz"]', () => {
+		var output = rj.validate("foo", {
+			not_in: ["foo", "bar", "baz"],
+		});
+
+		var expected_msg = 'That option is not allowed';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for "foo" in ["foo", "bar", "baz"] with a custom variable name', () => {
+		var output = rj.validate("foo", {
+			not_in: ["foo", "bar", "baz"],
+		}, "Nickname");
+
+		var expected_msg = 'Nickname is not a valid option';
 		
 		assert.equal(output.message, expected_msg);
 	});
