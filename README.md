@@ -8,9 +8,6 @@ Universal JS Validation Library
 https://www.npmjs.com/package/rj-validate
 
 
-This package is a work in progress, please check back occassionally for new validation options to be available.
-
-
 ## Why use rj-validate?:
 
 There are a ton of validation libraries out there. However, many of these libraries:
@@ -31,7 +28,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.5.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.6.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -125,7 +122,8 @@ rules = {
 	not_in:           (array|object|false),
 	before:           (string|Date|false),
 	before_or:        (string|Date|false),
-	after:            (string|Date|false)
+	after:            (string|Date|false),
+	after_or:         (string|Date|false)
 }
 ```
 

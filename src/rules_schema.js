@@ -388,4 +388,20 @@ module.exports = [
 			return rules_tests.after(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'after_or',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter a date on or after ' + rules_arg.after_or.toString();
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be on or after ' + rules_arg.after_or.toString();
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.afterOr(to_test, rules_arg);
+		}
+	},
 ];

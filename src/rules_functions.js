@@ -21,6 +21,24 @@ module.exports = {
 		return to_test > after_param;
 	},
 
+	afterOr: function(to_test, rules_arg) {
+		var after_param = rules_arg.after_or;
+
+		if (after_param === false) {
+			return true;
+		}
+
+		if (Object.prototype.toString.call(to_test) !== '[object Date]') {
+			to_test = new Date(to_test);
+		}
+
+		if (Object.prototype.toString.call(after_param) !== '[object Date]') {
+			after_param = new Date(after_param);
+		}
+
+		return to_test >= after_param;
+	},
+
 	alpha: function(to_test, rules_arg) {
 		if (rules_arg.alpha === false) {
 			return true;
