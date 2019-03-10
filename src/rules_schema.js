@@ -340,4 +340,20 @@ module.exports = [
 			return rules_tests.notIn(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'before',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter a date prior to ' + rules_arg.before.toString();
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be prior to ' + rules_arg.before.toString();
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.before(to_test, rules_arg);
+		}
+	},
 ];

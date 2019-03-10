@@ -106,29 +106,24 @@ Currently available validation options:
 
 ```javascript
 rules = {
-	required: (true|false),
-	same: {
-		name: (string),
-		value: (string|number|boolean)
-	},
-	different: {
-		name: (string),
-		value: (string|number|boolean)
-	},
-	min: (integer|false),
-	max: (integer|false),
-	alpha: (true|false),
-	alphanumeric: (true|false),
-	numeric: (true|false|'number'|'string'),
-	number: (true|false),
-	string: (true|false),
-	date: (true|false|'yyyy-mm-dd'|'mm/dd/yyyy'|'mm/dd/yy'),
-	datetime: (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
-	email: (true|false),
-	po_box: (true|false),
-	not_po_box: (true|false),
-	in: (array|object|false),
-	not_in: (array|object|false)
+	required:         (true|false),
+	same:             {name: (string), value: (string|number|boolean)},
+	different:        {name: (string), value: (string|number|boolean)},
+	min:              (integer|false),
+	max:              (integer|false),
+	alpha:            (true|false),
+	alphanumeric:     (true|false),
+	numeric:          (true|false|'number'|'string'),
+	number:           (true|false),
+	string:           (true|false),
+	date:             (true|false|'yyyy-mm-dd'|'mm/dd/yyyy'|'mm/dd/yy'),
+	datetime:         (true|false|'yyyy-mm-dd hh:mm:ss'|'mm/dd/yyyy hh:mm:ss'|'mm/dd/yy hh:mm:ss'),
+	email:            (true|false),
+	po_box:           (true|false),
+	not_po_box:       (true|false),
+	in:               (array|object|false),
+	not_in:           (array|object|false),
+	before:           (string|Date|false)
 }
 ```
 

@@ -51,6 +51,24 @@ module.exports = {
 	    return regex_result[0] === to_test;
 	},
 
+	before: function(to_test, rules_arg) {
+		var before_param = rules_arg.before;
+
+		if (before_param === false) {
+			return true;
+		}
+
+		if (Object.prototype.toString.call(to_test) !== '[object Date]') {
+			to_test = new Date(to_test);
+		}
+
+		if (Object.prototype.toString.call(before_param) !== '[object Date]') {
+			before_param = new Date(before_param);
+		}
+
+		return to_test < before_param;
+	},
+
 	in: function(to_test, rules_arg) {
 		const in_param = rules_arg.in;
 
