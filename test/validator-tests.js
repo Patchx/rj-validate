@@ -444,13 +444,13 @@ describe('validate() output message', () => {
 	// -----------------
 
 	it('should return the correct failure message for required on an empty string', () => {
-		var expected_msg = 'The input cannot be blank';
+		var expected_msg = 'Required';
 		var actual_msg = rj.validate('', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return the correct failure message for required on an empty string with a custom variable name', () => {
-		var expected_msg = 'first_name cannot be blank';
+		var expected_msg = 'first_name is required';
 		var actual_msg = rj.validate('', {required: true}, 'first_name').message;
 		assert.equal(actual_msg, expected_msg);
 	});
@@ -495,7 +495,7 @@ describe('validate() output message', () => {
 			value: 'abc123',
 		};
 
-		var expected_msg = 'The input must be the same as test_var';
+		var expected_msg = 'Must be the same as test_var';
 		var actual_msg = rj.validate('foobar', {same: same_rule}).message;
 		assert.equal(expected_msg, actual_msg);
 	});
@@ -527,7 +527,7 @@ describe('validate() output message', () => {
 			min: 7,
 		});
 
-		var expected_msg = 'The input must be 7 or longer';
+		var expected_msg = 'Must be 7 or longer';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -567,7 +567,7 @@ describe('validate() output message', () => {
 			max: 5,
 		});
 
-		var expected_msg = 'The input must be 5 or shorter';
+		var expected_msg = 'Must be 5 or shorter';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -579,7 +579,7 @@ describe('validate() output message', () => {
 			max: 30,
 		});
 
-		var expected_msg = 'The input must be 7 or longer';
+		var expected_msg = 'Must be 7 or longer';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -591,7 +591,7 @@ describe('validate() output message', () => {
 			max: 5,
 		});
 
-		var expected_msg = 'The input must be 5 or smaller';
+		var expected_msg = 'Must be 5 or smaller';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -603,7 +603,7 @@ describe('validate() output message', () => {
 			max: 30,
 		});
 
-		var expected_msg = 'The input must be 7 or larger';
+		var expected_msg = 'Must be 7 or larger';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -619,7 +619,7 @@ describe('validate() output message', () => {
 			alpha: true,
 		});
 
-		var expected_msg = 'The input may only contain letters';
+		var expected_msg = 'Please enter letters only';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -634,7 +634,7 @@ describe('validate() output message', () => {
 			alphanumeric: true,
 		});
 
-		var expected_msg = 'The input may only contain letters or numbers';
+		var expected_msg = 'Please enter letters or numbers only';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -649,7 +649,33 @@ describe('validate() output message', () => {
 			po_box: true,
 		});
 
-		var expected_msg = 'The input must be a P.O. Box';
+		var expected_msg = 'Invalid P.O. Box';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for required and po_box true on "foo7bar!@#" with custom variable name', () => {
+		var output = rj.validate("foo7bar!@#", {
+			required: true,
+			po_box: true,
+		}, 'street line 1');
+
+		var expected_msg = 'street line 1 must be a P.O. Box';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	// -------------------
+	// - not_po_box rule -
+	// -------------------
+
+	it('should return the correct error message for required and not_po_box true on "po box 123"', () => {
+		var output = rj.validate("po box 123", {
+			required: true,
+			not_po_box: true,
+		});
+
+		var expected_msg = 'P.O. Box not allowed';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -731,7 +757,7 @@ describe('validate() output message', () => {
 			email: true,
 		});
 
-		var expected_msg = 'The input must be an email address';
+		var expected_msg = 'Please enter a valid email address';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -758,7 +784,7 @@ describe('validate() output message', () => {
 			date: 'yyyy-mm-dd',
 		});
 
-		var expected_msg = 'The input must be a date';
+		var expected_msg = 'Please enter a valid date';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -785,7 +811,7 @@ describe('validate() output message', () => {
 			datetime: 'yyyy-mm-dd',
 		});
 
-		var expected_msg = 'The input must be a datetime';
+		var expected_msg = 'Please enter a valid date and time';
 		
 		assert.equal(output.message, expected_msg);
 	});
@@ -821,13 +847,13 @@ describe('test()', () => {
 	});
 
 	it('should return the correct failure message for required on an empty string', () => {
-		var expected_msg = 'The input cannot be blank';
+		var expected_msg = 'Required';
 		var actual_msg = rj.test('', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return the correct failure message for required on an empty string with a custom variable name', () => {
-		var expected_msg = 'first_name cannot be blank';
+		var expected_msg = 'first_name is required';
 		var actual_msg = rj.test('', {required: true}, 'first_name').message;
 		assert.equal(actual_msg, expected_msg);
 	});

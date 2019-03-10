@@ -6,11 +6,11 @@ module.exports = [
 		rule_name: 'required',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input cannot be blank';
+			return 'Required';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' cannot be blank';
+			return var_name + ' is required';
 		},
 
 
@@ -24,7 +24,7 @@ module.exports = [
 
 		no_varname_msg: function(to_test, rules_arg) {
 			const name = rules_arg.same.name;
-			return 'The input must be the same as ' + name;
+			return 'Must be the same as ' + name;
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -55,10 +55,10 @@ module.exports = [
 			var min_length = rules_arg.min;
 
 			if (h.isNumber(to_test)) {
-				return 'The input must be ' + min_length + ' or larger';
+				return 'Must be ' + min_length + ' or larger';
 			}
 
-			return 'The input must be ' + min_length + ' or longer';
+			return 'Must be ' + min_length + ' or longer';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -83,10 +83,10 @@ module.exports = [
 			var max_length = rules_arg.max;
 
 			if (h.isNumber(to_test)) {
-				return 'The input must be ' + max_length + ' or smaller';
+				return 'Must be ' + max_length + ' or smaller';
 			}
 
-			return 'The input must be ' + max_length + ' or shorter';
+			return 'Must be ' + max_length + ' or shorter';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -108,7 +108,7 @@ module.exports = [
 		rule_name: 'alpha',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input may only contain letters';
+			return 'Please enter letters only';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -124,7 +124,7 @@ module.exports = [
 		rule_name: 'alphanumeric',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input may only contain letters or numbers';
+			return 'Please enter letters or numbers only';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -188,11 +188,11 @@ module.exports = [
 		rule_name: 'date',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input must be a date';
+			return 'Please enter a valid date';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be a date';
+			return var_name + ' must be a valid date';
 		},
 
 		test: function(to_test, rules_arg) {
@@ -204,11 +204,11 @@ module.exports = [
 		rule_name: 'datetime',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input must be a datetime';
+			return 'Please enter a valid date and time';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be a datetime';
+			return var_name + ' must be a date and time';
 		},
 
 		test: function(to_test, rules_arg) {
@@ -220,11 +220,11 @@ module.exports = [
 		rule_name: 'email',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input must be an email address';
+			return 'Please enter a valid email address';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be an email address';
+			return var_name + ' must be a valid email address';
 		},
 
 		test: function(to_test, rules_arg) {
@@ -236,7 +236,7 @@ module.exports = [
 		rule_name: 'po_box',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input must be a P.O. Box';
+			return 'Invalid P.O. Box';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
@@ -256,7 +256,7 @@ module.exports = [
 		rule_name: 'not_po_box',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'The input must not be a P.O. Box';
+			return 'P.O. Box not allowed';
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {

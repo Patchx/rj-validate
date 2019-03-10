@@ -147,7 +147,7 @@ rj.test('', {
 });
 
 // output:
-// Object {message: "The input cannot be blank", valid: false}
+// Object {message: "Required", valid: false}
 
 
 rj.test('', {
@@ -155,7 +155,7 @@ rj.test('', {
 }, 'first name');
 
 // output:
-// Object {message: "first name cannot be blank", valid: false}
+// Object {message: "first name is required", valid: false}
 
 
 rj.test('', {
