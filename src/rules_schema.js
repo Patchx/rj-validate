@@ -49,6 +49,35 @@ module.exports = [
 	},
 
 	{
+		rule_name: 'different',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			const name = rules_arg.different.name;
+			return 'Must not be the same as ' + name;
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			const name = rules_arg.different.name;
+			return var_name + ' must not be the same as ' + name;
+		},
+
+
+		test: function(to_test, rules_arg) {
+			if (rules_arg.different === false) {
+				return true;
+			}
+
+			if (!h.isObject(rules_arg.different)) {
+				throw new Error("The different rule must be an object");
+			}
+
+			const value = rules_arg.different.value;
+
+			return to_test !== value;
+		},
+	},
+
+	{
 		rule_name: 'min',
 
 		no_varname_msg: function(to_test, rules_arg) {

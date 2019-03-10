@@ -489,6 +489,16 @@ describe('validate() output message', () => {
 	// - same rule -
 	// -------------
 
+	it('should return valid:true for same rule on same values', () => {
+		var same_rule = {
+			name: 'test_var',
+			value: 'abc123',
+		};
+
+		var is_valid = rj.validate('abc123', {same: same_rule}).valid;
+		assert.equal(is_valid, true);
+	});
+
 	it('should return the correct error message for same rule on different values', () => {
 		var same_rule = {
 			name: 'test_var',
@@ -508,11 +518,49 @@ describe('validate() output message', () => {
 
 		var expected_msg = 'first_var must be the same as second_var';
 		
-		var actual_msg = rj.validate(
-			'foobar', 
-			{same: same_rule},
-			'first_var'
-		).message;
+		var actual_msg = rj.validate('foobar', {
+			same: same_rule
+		}, 'first_var').message;
+		
+		assert.equal(expected_msg, actual_msg);
+	});
+
+	// ------------------
+	// - different rule -
+	// ------------------
+
+	it('should return valid:true for different rule on different values', () => {
+		var different_rule = {
+			name: 'test_var',
+			value: 'abc123',
+		};
+
+		var is_valid = rj.validate('foobar', {different: different_rule}).valid;
+		assert.equal(is_valid, true);
+	});
+
+	it('should return the correct error message for different rule on same values', () => {
+		var different_rule = {
+			name: 'test_var',
+			value: 'abc123',
+		};
+
+		var expected_msg = 'Must not be the same as test_var';
+		var actual_msg = rj.validate('abc123', {different: different_rule}).message;
+		assert.equal(expected_msg, actual_msg);
+	});
+
+	it('should return the correct error message for different rule on same values, with a custom variable name', () => {
+		var different_rule = {
+			name: 'second_var',
+			value: 'abc123',
+		};
+
+		var expected_msg = 'first_var must not be the same as second_var';
+		
+		var actual_msg = rj.validate('abc123', {
+			different: different_rule
+		}, 'first_var').message;
 		
 		assert.equal(expected_msg, actual_msg);
 	});

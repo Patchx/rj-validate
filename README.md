@@ -31,7 +31,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.3/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.4.4/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -108,6 +108,10 @@ Currently available validation options:
 rules = {
 	required: (true|false),
 	same: {
+		name: (string),
+		value: (string|number|boolean)
+	},
+	different: {
 		name: (string),
 		value: (string|number|boolean)
 	},
