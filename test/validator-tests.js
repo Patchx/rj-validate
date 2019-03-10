@@ -540,6 +540,18 @@ describe('validate() valid flag', () => {
 		
 		assert.equal(output.valid, true);
 	});
+
+	// ------------------
+	// - before_or rule -
+	// ------------------
+
+	it('should return valid === true for "1987-07-08" before_or 07/08/1987', () => {
+		var output = rj.validate("1987-07-08", {
+			before_or: "07/08/1987",
+		});
+		
+		assert.equal(output.valid, true);
+	});
 });
 
 describe('validate() output message', () => {
@@ -1040,12 +1052,46 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	it('should return the correct error message for "1987-07-08" before new Date(10/01/1987)', () => {
+		var output = rj.validate("1987-10-01", {
+			before: new Date("07/08/1987"),
+		});
+
+		var expected_msg = 'Please enter a date prior to Wed Jul 08 1987 00:00:00 GMT-0400 (EDT)';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
 	it('should return the correct error message for "1987-07-08" before 10/01/1987 with a custom variable name', () => {
 		var output = rj.validate("1987-10-01", {
 			before: "07/08/1987",
 		}, 'Birth date');
 
 		var expected_msg = 'Birth date must be prior to 07/08/1987';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	// ------------------
+	// - before_or rule -
+	// ------------------
+
+	it('should return the correct error message for "1987-07-08" before_or 10/01/1987', () => {
+		var output = rj.validate("1987-10-01", {
+			before_or: "07/08/1987",
+		});
+
+		var expected_msg = 'Please enter a date on or prior to 07/08/1987';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message for "1987-07-08" before_or 10/01/1987 with a custom variable name', () => {
+		var output = rj.validate("1987-10-01", {
+			before_or: "07/08/1987",
+		}, 'Date of Death');
+
+		var expected_msg = 'Date of Death must be on or prior to 07/08/1987';
 		
 		assert.equal(output.message, expected_msg);
 	});

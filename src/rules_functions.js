@@ -69,6 +69,24 @@ module.exports = {
 		return to_test < before_param;
 	},
 
+	beforeOr: function(to_test, rules_arg) {
+		var before_param = rules_arg.before_or;
+
+		if (before_param === false) {
+			return true;
+		}
+
+		if (Object.prototype.toString.call(to_test) !== '[object Date]') {
+			to_test = new Date(to_test);
+		}
+
+		if (Object.prototype.toString.call(before_param) !== '[object Date]') {
+			before_param = new Date(before_param);
+		}
+
+		return to_test <= before_param;
+	},
+
 	in: function(to_test, rules_arg) {
 		const in_param = rules_arg.in;
 

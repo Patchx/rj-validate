@@ -356,4 +356,20 @@ module.exports = [
 			return rules_tests.before(to_test, rules_arg);
 		}
 	},
+
+	{
+		rule_name: 'before_or',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter a date on or prior to ' + rules_arg.before_or.toString();
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' must be on or prior to ' + rules_arg.before_or.toString();
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.beforeOr(to_test, rules_arg);
+		}
+	},
 ];
