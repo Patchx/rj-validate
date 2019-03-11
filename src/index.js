@@ -83,6 +83,10 @@ function validateInput(to_test, rules_arg, var_name='') {
 // ----------
 
 module.exports = {
+	isValid: function(to_test, rules_arg, var_name='') {
+		return validateInput(to_test, rules_arg, var_name).valid;
+	},
+
 	test: function(to_test, rules_arg, var_name='') {
 		return validateInput(to_test, rules_arg, var_name);
 	},

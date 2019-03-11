@@ -28,7 +28,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.6.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.7.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -97,6 +97,20 @@ rj.test('', {
 ```
 
 For each rule that you'd like to have a custom error message, add a ```[rule]_msg``` option to the rules argument, as shown above.
+
+
+In some scenarios, you may not be interested in the specific error message and you only want to know if the request passes all validations. In those situations, you can use isValid()
+
+```javascript
+rj.isValid('1987-10-01', {
+    required: true,
+    date: 'yyyy-mm-dd',
+    before: '1980-01-01'
+});
+
+// output:
+// false
+```
 
 
 Currently available validation options:

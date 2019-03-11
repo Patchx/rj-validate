@@ -1221,3 +1221,36 @@ describe('test()', () => {
 		assert.equal(actual_msg, expected_msg);
 	});
 });
+
+describe('isValid()', () => {
+	it('should throw an error if no arguments included', () => {
+		assert.throw(
+			rj.isValid, 
+			Error, 
+			"Not enough arguments passed to function 'validate'"
+		);
+	});
+
+	it('should throw an error if the value to test is an array', () => {
+		assert.throw(
+			() => {rj.isValid([], {})}, 
+			Error, 
+			"Invalid test parameter"
+		);
+	});
+
+	it('should return false for required on an empty string', () => {
+		var output = rj.isValid('', {required: true});
+		assert.equal(output, false);
+	});
+
+	it('should return false for required on an empty string with a custom variable name', () => {
+		var output = rj.isValid('', {required: true}, 'first_name');
+		assert.equal(output, false);
+	});
+
+	it('should return true for required on a non-empty string', () => {
+		var output = rj.isValid('abc123', {required: true});
+		assert.equal(output, true);
+	});
+});
