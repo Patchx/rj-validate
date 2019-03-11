@@ -1,5 +1,3 @@
-// Todo:
-// * Eventually, need to allow custom rules, by passing in an array of custom functions
 
 // ----------------
 // - Dependencies -
@@ -28,6 +26,35 @@ function makeFailureMsg(inputs) {
 	} else {
 		return rule_obj.varname_msg(inputs.to_test, rules_arg, var_name);
 	}
+}
+
+function testCustomRules(to_test, custom_rules) {
+	if (custom_rules === false) {
+		return {
+			valid: true, 
+			message: 'all tests pass'
+		};
+	}
+
+	if (!h.isArray(custom_rules)) {
+		throw new Error("Custom rules must be an array");
+	}
+
+	for (var i = 0; i < custom_rules.length; i++) {
+		var custom_rule = custom_rules[i];
+
+		if (!custom_rule.test(to_test)) {
+			return {
+				valid: false,
+				message: custom_rule.error_msg
+			};
+		}
+	}
+
+	return {
+		valid: true, 
+		message: 'all tests pass'
+	};
 }
 
 function validTestParam(test_param) {
@@ -72,10 +99,15 @@ function validateInput(to_test, rules_arg, var_name='') {
 		}
 	}
 
-	return {
-		valid: true,
-		message: 'all tests pass'
-	};
+	if (rules_arg.custom !== undefined) {
+		var custom_result = testCustomRules(to_test, rules_arg.custom);
+
+		if (!custom_result.valid) {
+			return custom_result;
+		}
+	}
+
+	return {valid: true, message: 'all tests pass'};
 }
 
 // ----------

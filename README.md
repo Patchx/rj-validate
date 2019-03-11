@@ -28,7 +28,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.7.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.8.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -113,7 +113,7 @@ rj.isValid('1987-10-01', {
 ```
 
 
-Currently available validation options:
+Available validation options:
 
 ```javascript
 rules = {
@@ -142,6 +142,114 @@ rules = {
 ```
 
 Note that a [rule]:false will always be considered valid. This option exists solely to help dynamically specify rules at runtime.
+
+
+If you need to use a validation rule that isn't in the list above, you can create a custom rule. Here is an example of a custom rule that checks if the first letter in a line of text is capitalized:
+
+```javascript
+function startsWithCapital(input) {
+	return input[0] === input[0].toUpperCase();
+}
+
+var rj = require("rj-validate");
+
+rj.test('the quick brown fox jumps over the lazy dog', {
+    required: true,
+    min: 4,
+    custom: [{
+    	test: function(input) {
+    		return startsWithCapital(input);
+    	},
+    	error_msg: 'Please start your sentences with a capital letter.'
+    }]
+});
+
+// output:
+// Object {message: "Please start your sentences with a capital letter.", valid: false}
+
+```
+
+You can pass as many custom rules into the validator as you would like:
+
+```javascript
+function startsWithCapital(input) {
+	return input[0] === input[0].toUpperCase();
+}
+
+function endsWithPeriod(input) {
+	return input.slice(-1) === '.';
+}
+
+var rj = require("rj-validate");
+
+rj.test('The quick brown fox jumps over the lazy dog', {
+    required: true,
+    min: 4,
+    custom: [
+    	{
+    		test: function(input) {
+    			return startsWithCapital(input);
+    		},
+    		error_msg: 'Please start your sentences with a capital letter.'
+    	},
+
+    	{
+    		test: function(input) {
+    			return endsWithPeriod(input);
+    		},
+    		error_msg: 'Please finish your sentences with a period.'
+    	},
+    ]
+});
+
+// output:
+// Object {message: "Please finish your sentences with a period.", valid: false}
+
+```
+
+Custom rules give you a high degree of flexibility, while still working within the framework of a validation library. You can even use the custom validations array to reorganize which validations run before others:
+
+```javascript
+function startsWithCapital(input) {
+	return input[0] === input[0].toUpperCase();
+}
+
+function endsWithPeriod(input) {
+	return input.slice(-1) === '.';
+}
+
+var rj = require("rj-validate");
+
+rj.test('the', {
+    required: true,
+    custom: [
+    	{
+    		test: function(input) {
+    			return startsWithCapital(input);
+    		},
+    		error_msg: 'Please start your sentences with a capital letter.'
+    	},
+
+    	{
+    		test: function(input) {
+    			return endsWithPeriod(input);
+    		},
+    		error_msg: 'Please finish your sentences with a period.'
+    	},
+
+    	{
+    		test: function(input) {
+    			return rj.isValid(input, {min: 4});
+    		},
+    		error_msg: 'Sentence is too short. Is this a sentence fragment?'
+		},
+    ]
+});
+
+// output:
+// Object {message: "Please start your sentences with a capital letter.", valid: false}
+
+```
 
 
 ## Examples:

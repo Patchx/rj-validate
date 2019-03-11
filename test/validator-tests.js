@@ -1254,3 +1254,142 @@ describe('isValid()', () => {
 		assert.equal(output, true);
 	});
 });
+
+describe('custom rules', () => {
+	it('should throw an error if custom rules is not an array', () => {
+		assert.throw(
+			() => {
+				rj.test('the quick brown fox jumps over the lazy dog', {
+				    required: true,
+				    min: 4,
+				    custom: true
+				});
+			},
+
+			Error, 
+			"Custom rules must be an array"
+		);
+	});
+
+	it('should return true for custom rules === false', () => {
+		const output = rj.test('the quick brown fox jumps over the lazy dog', {
+		    required: true,
+		    min: 4,
+		    custom: false
+		});
+
+		assert.equal(output.valid, true);
+	});
+
+	it('should return the correct regular error message with 1 custom rule', () => {
+		function startsWithCapital(input) {
+			return input[0] === input[0].toUpperCase();
+		}
+
+		const output = rj.test('the', {
+		    required: true,
+		    min: 4,
+		    custom: [{
+		    	test: function(input) {
+		    		return startsWithCapital(input);
+		    	},
+		    	error_msg: 'Please start your sentences with a capital letter.'
+		    }]
+		});
+
+		const expected_msg = "Must be 4 or longer";
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message with 1 custom rule', () => {
+		function startsWithCapital(input) {
+			return input[0] === input[0].toUpperCase();
+		}
+
+		const output = rj.test('the quick brown fox jumps over the lazy dog', {
+		    required: true,
+		    min: 4,
+		    custom: [{
+		    	test: function(input) {
+		    		return startsWithCapital(input);
+		    	},
+		    	error_msg: 'Please start your sentences with a capital letter.'
+		    }]
+		});
+
+		const expected_msg = "Please start your sentences with a capital letter.";
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message with 2 custom rules', () => {
+		function startsWithCapital(input) {
+			return input[0] === input[0].toUpperCase();
+		}
+
+		function endsWithPeriod(input) {
+			return input.slice(-1) === '.';
+		}
+
+		const output = rj.test('The quick brown fox jumps over the lazy dog', {
+		    required: true,
+		    min: 4,
+		    custom: [
+		    	{
+		    		test: function(input) {
+		    			return startsWithCapital(input);
+		    		},
+		    		error_msg: 'Please start your sentences with a capital letter.'
+		    	},
+
+		    	{
+		    		test: function(input) {
+		    			return endsWithPeriod(input);
+		    		},
+		    		error_msg: 'Please finish your sentences with a period.'
+		    	},
+		    ]
+		});
+
+		const expected_msg = "Please finish your sentences with a period.";
+		assert.equal(output.message, expected_msg);
+	});
+
+	it('should return the correct error message with 3 custom rules', () => {
+		function startsWithCapital(input) {
+			return input[0] === input[0].toUpperCase();
+		}
+
+		function endsWithPeriod(input) {
+			return input.slice(-1) === '.';
+		}
+
+		const output = rj.test('the', {
+		    required: true,
+		    custom: [
+		    	{
+		    		test: function(input) {
+		    			return startsWithCapital(input);
+		    		},
+		    		error_msg: 'Please start your sentences with a capital letter.'
+		    	},
+
+		    	{
+		    		test: function(input) {
+		    			return endsWithPeriod(input);
+		    		},
+		    		error_msg: 'Please finish your sentences with a period.'
+		    	},
+
+		    	{
+		    		test: function(input) {
+		    			return rj.isValid(input, {min: 4});
+		    		},
+		    		error_msg: 'Sentence is too short. Is this a sentence fragment?'
+				},
+		    ]
+		});
+
+		const expected_msg = "Please start your sentences with a capital letter.";
+		assert.equal(output.message, expected_msg);
+	});
+});
