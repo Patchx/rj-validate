@@ -77,6 +77,10 @@ function validateInput(to_test, rules_arg, var_name='') {
 	if (!validTestParam(to_test)) {
 		throw new Error("Invalid test parameter");
 	}
+
+	if (to_test === '' && rules_arg.required !== true) {
+		return {valid: true, message: 'all tests pass'};
+	}
 	
 	for (var i = 0; i < rules_schema.length; i++) {
 		var rule_obj = rules_schema[i];
@@ -125,5 +129,20 @@ module.exports = {
 
 	validate: function(to_test, rules_arg, var_name='') {
 		return validateInput(to_test, rules_arg, var_name);
+	},
+
+	validateAll: function(request) {
+		if (!h.isArray(request)) {
+			throw new Error("Input to validateAll() must be an array");
+		}
+
+		var output = {};
+
+		for (var i = 0; i < request.length; i++) {
+			const item = request[i];
+			output[item.name] = validateInput(item.value, item.rules, item.name);
+		}
+
+		return output;
 	}
 };

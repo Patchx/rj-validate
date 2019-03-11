@@ -1393,3 +1393,71 @@ describe('custom rules', () => {
 		assert.equal(output.message, expected_msg);
 	});
 });
+
+describe('validateAll()', () => {
+	it('should throw an error if input is not an array', () => {
+		assert.throw(
+			() => {rj.validateAll('abc123');},
+			Error, 
+			"Input to validateAll() must be an array"
+		);
+	});
+
+	it('should return the expected output for Professor Farnsworth', () => {
+		const output = rj.validateAll([
+			{
+				name: 'first name',
+				value: 'Hubert!',
+				rules: {
+					required: true,
+					min: 2,
+					alpha: true
+				},
+			},
+
+			{
+				name: 'middle name',
+				value: 'J',
+				rules: {
+					min: 2,
+					alpha: true
+				}
+			},
+
+			{
+				name: 'last name',
+				value: 'Farnsworth',
+				rules: {
+					required: true,
+					min: 2,
+					alpha: true
+				}
+			},
+
+			{
+				name: 'suffix',
+				value: '',
+				rules: {
+					in: ['Jr', 'Sr', 'III', 'IV']
+				}
+			}
+		]);
+
+		assert.equal(output['first name'].valid, false);
+
+		assert.equal(
+			output['first name'].message, 
+			'first name may only contain letters'
+		);
+		
+		assert.equal(output['middle name'].valid, false);
+		
+		assert.equal(
+			output['middle name'].message,
+			'middle name must be 2 or longer'
+		);
+		
+		assert.equal(output['last name'].valid, true);
+		assert.equal(output['suffix'].valid, true);
+	});
+});

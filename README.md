@@ -28,7 +28,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@0.8.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.0.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -252,7 +252,77 @@ rj.test('the', {
 ```
 
 
-## Examples:
+You can also validate multiple inputs at the same time with the validateAll() method:
+
+```javascript
+var rj = require("rj-validate");
+
+rj.validateAll([
+	{
+		name: 'first name',
+		value: 'Hubert!',
+		rules: {
+			required: true,
+			min: 2,
+			alpha: true
+		},
+	},
+
+	{
+		name: 'middle name',
+		value: 'J',
+		rules: {
+			min: 2,
+			alpha: true
+		}
+	},
+
+	{
+		name: 'last name',
+		value: 'Farnsworth',
+		rules: {
+			required: true,
+			min: 2,
+			alpha: true
+		}
+	},
+
+	{
+		name: 'suffix',
+		value: '',
+		rules: {
+			in: ['Jr', 'Sr', 'III', 'IV']
+		}
+	}
+]);
+
+// output:
+Object {
+	'first name': {
+		valid: false,
+		message: 'first name may only contain letters'
+	},
+
+	'middle name': {
+		valid: false,
+		message: 'middle name must be 2 or longer'
+	},
+
+	'last name': {
+		valid: true,
+		message: 'All tests pass'
+	},
+
+	'suffix': {
+		valid: true,
+		message: 'All tests pass'
+	}
+}
+
+```
+
+
+## More Examples:
 
 ```javascript
 var rj = require("rj-validate");
