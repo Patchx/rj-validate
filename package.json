@@ -5,7 +5,6 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode=development",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "dev": "npm run watch",
     "prod": "npm run build -- --mode=production",
     "test": "nyc mocha",
