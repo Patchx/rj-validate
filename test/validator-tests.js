@@ -6,7 +6,7 @@ const rj = require('../dist/main.js');
 describe('validate() parameter checking', () => {
 	it('should throw an error if no arguments included', () => {
 		assert.throw(
-			rj.validate, 
+			rj().validate, 
 			Error, 
 			"Not enough arguments passed to function 'validate'"
 		);
@@ -14,7 +14,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if only 1 argument included', () => {
 		assert.throw(
-			() => {rj.validate('test')}, 
+			() => {rj().validate('test')}, 
 			Error, 
 			"Not enough arguments passed to function 'validate'"
 		);
@@ -22,7 +22,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the rules argument is not an object', () => {
 		assert.throw(
-			() => {rj.validate('test', 'test')}, 
+			() => {rj().validate('test', 'test')}, 
 			Error, 
 			"Rules must be an object"
 		);
@@ -30,7 +30,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value to test is an object', () => {
 		assert.throw(
-			() => {rj.validate({}, {})}, 
+			() => {rj().validate({}, {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
@@ -38,7 +38,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value to test is a date object', () => {
 		assert.throw(
-			() => {rj.validate(new Date('2018-01-02'), {})}, 
+			() => {rj().validate(new Date('2018-01-02'), {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
@@ -46,7 +46,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value to test is an array', () => {
 		assert.throw(
-			() => {rj.validate([], {})}, 
+			() => {rj().validate([], {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
@@ -54,7 +54,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value to test is a function', () => {
 		assert.throw(
-			() => {rj.validate(function(){}, {})}, 
+			() => {rj().validate(function(){}, {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
@@ -66,7 +66,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value of "in" is not an array or object', () => {
 		assert.throw(
-			() => {rj.validate("foo", {in: "foo"})}, 
+			() => {rj().validate("foo", {in: "foo"})}, 
 			Error, 
 			'argument supplied to "in" rule must be either an array or an object'
 		);
@@ -74,7 +74,7 @@ describe('validate() parameter checking', () => {
 
 	it('should throw an error if the value of "not_in" is not an array or object', () => {
 		assert.throw(
-			() => {rj.validate("foo", {not_in: "foo"})}, 
+			() => {rj().validate("foo", {not_in: "foo"})}, 
 			Error, 
 			'argument supplied to "not_in" rule must be either an array or an object'
 		);
@@ -87,47 +87,47 @@ describe('validate() valid flag', () => {
 	// -----------------
 
 	it('should return valid === true if required is set to false', () => {
-		var output = rj.validate(undefined, {required: false});
+		var output = rj().validate(undefined, {required: false});
 		assert.equal(output.valid, true);
 	});
 
 	it('should return valid === false for required on undefined', () => {
-		var output = rj.validate(undefined, {required: true});
+		var output = rj().validate(undefined, {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === false for required on undefined object property', () => {
-		var output = rj.validate({}.foo, {required: true});
+		var output = rj().validate({}.foo, {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === false for required on null', () => {
-		var output = rj.validate(null, {required: true});
+		var output = rj().validate(null, {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === false for required on 0', () => {
-		var output = rj.validate(0, {required: true});
+		var output = rj().validate(0, {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === true for required on 1', () => {
-		var output = rj.validate(1, {required: true});
+		var output = rj().validate(1, {required: true});
 		assert.equal(output.valid, true);
 	});
 
 	it('should return valid === false for required on an empty string', () => {
-		var output = rj.validate('', {required: true});
+		var output = rj().validate('', {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === false for required on an empty string with a custom variable name', () => {
-		var output = rj.validate('', {required: true}, 'first_name');
+		var output = rj().validate('', {required: true}, 'first_name');
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === true for required on a non-empty string', () => {
-		var output = rj.validate('abc123', {required: true});
+		var output = rj().validate('abc123', {required: true});
 		assert.equal(output.valid, true);
 	});
 
@@ -136,7 +136,7 @@ describe('validate() valid flag', () => {
 	// -------------
 
 	it('should return valid === true if same is set to false', () => {
-		var output = rj.validate(undefined, {same: false});
+		var output = rj().validate(undefined, {same: false});
 		assert.equal(output.valid, true);
 	});
 
@@ -146,7 +146,7 @@ describe('validate() valid flag', () => {
 			value: 'abc123',
 		};
 
-		var output = rj.validate('abc123', {same: same_rule});
+		var output = rj().validate('abc123', {same: same_rule});
 		assert.equal(output.valid, true);
 	});
 
@@ -156,7 +156,7 @@ describe('validate() valid flag', () => {
 			value: 12.34,
 		};
 
-		var output = rj.validate(12.34, {same: same_rule});
+		var output = rj().validate(12.34, {same: same_rule});
 		assert.equal(output.valid, true);
 	});
 
@@ -166,14 +166,14 @@ describe('validate() valid flag', () => {
 			value: 12.34,
 		};
 
-		var output = rj.validate(12.34001, {same: same_rule});
+		var output = rj().validate(12.34001, {same: same_rule});
 		assert.equal(output.valid, false);
 	});
 
 	it('should throw an error if the same rule is not an object', () => {
 		assert.throw(
 			() => {
-				rj.validate(12.34, {same: 'abc123'});
+				rj().validate(12.34, {same: 'abc123'});
 			}, 
 			Error, 
 			"The same rule must be an object"
@@ -185,7 +185,7 @@ describe('validate() valid flag', () => {
 	// ------------
 
 	it('should return valid === true for required and a min of 2 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 2,
 		});
@@ -194,7 +194,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for required and a min of 7 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 7,
 		});
@@ -203,7 +203,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for required,  min of 2, and max of 5 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 2,
 			max: 5,
@@ -213,7 +213,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for required,  min of 2, and alpha on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			required: true,
 			min: 2,
 			alpha: true,
@@ -227,7 +227,7 @@ describe('validate() valid flag', () => {
 	// ---------------
 
 	it('should return valid === true for min of 2 and po_box false on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			po_box: false,
 		});
@@ -236,7 +236,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and not_po_box false on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			not_po_box: false,
 		});
@@ -245,7 +245,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and po_box on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			po_box: true,
 		});
@@ -254,7 +254,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and not_po_box on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			not_po_box: true,
 		});
@@ -263,7 +263,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and po_box on "po box 123"', () => {
-		var output = rj.validate('po box 123', {
+		var output = rj().validate('po box 123', {
 			min: 2,
 			po_box: true,
 		});
@@ -272,7 +272,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and not_po_box on "po box 123"', () => {
-		var output = rj.validate('po box 123', {
+		var output = rj().validate('po box 123', {
 			min: 2,
 			not_po_box: true,
 		});
@@ -285,7 +285,7 @@ describe('validate() valid flag', () => {
 	// -----------
 
 	it('should return valid === true for min of 2 and numeric false on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			numeric: false,
 		});
@@ -294,7 +294,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and numeric true on "foo7bar"', () => {
-		var output = rj.validate('foo7bar', {
+		var output = rj().validate('foo7bar', {
 			min: 2,
 			numeric: true,
 		});
@@ -303,7 +303,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and numeric false on "123"', () => {
-		var output = rj.validate('123', {
+		var output = rj().validate('123', {
 			min: 2,
 			numeric: false,
 		});
@@ -312,7 +312,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and numeric of "string" on "123"', () => {
-		var output = rj.validate('123', {
+		var output = rj().validate('123', {
 			min: 2,
 			numeric: "string",
 		});
@@ -321,7 +321,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and numeric of "number" on "123"', () => {
-		var output = rj.validate('123', {
+		var output = rj().validate('123', {
 			min: 2,
 			numeric: "number",
 		});
@@ -334,7 +334,7 @@ describe('validate() valid flag', () => {
 	// ---------------
 
 	it('should return valid === true for min of 2 and number of false on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			min: 2,
 			number: false,
 		});
@@ -343,7 +343,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and number of true on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			min: 2,
 			number: true,
 		});
@@ -352,7 +352,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and number of true on 123', () => {
-		var output = rj.validate(123, {
+		var output = rj().validate(123, {
 			min: 2,
 			number: true,
 		});
@@ -365,7 +365,7 @@ describe('validate() valid flag', () => {
 	// ---------------
 
 	it('should return valid === true for min of 2 and string of false on 123', () => {
-		var output = rj.validate(123, {
+		var output = rj().validate(123, {
 			min: 2,
 			string: false,
 		});
@@ -374,7 +374,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and string of true on 123', () => {
-		var output = rj.validate(123, {
+		var output = rj().validate(123, {
 			min: 2,
 			string: true,
 		});
@@ -383,7 +383,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and string of true on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			min: 2,
 			string: true,
 		});
@@ -396,7 +396,7 @@ describe('validate() valid flag', () => {
 	// --------------
 
 	it('should return valid === true for min of 2 and email:false on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			min: 2,
 			email: false,
 		});
@@ -405,7 +405,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for min of 2 and email on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			min: 2,
 			email: true,
 		});
@@ -414,7 +414,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for min of 2 and email on "abc@abc.abc"', () => {
-		var output = rj.validate('abc@abc.abc', {
+		var output = rj().validate('abc@abc.abc', {
 			min: 2,
 			email: true,
 		});
@@ -427,7 +427,7 @@ describe('validate() valid flag', () => {
 	// -------------
 
 	it('should return valid === false for required and date on "abc"', () => {
-		var output = rj.validate('abc', {
+		var output = rj().validate('abc', {
 			required: true,
 			date: 'yyyy-mm-dd',
 		});
@@ -436,7 +436,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for required and date:yyyy-mm-dd on "1987-10-01"', () => {
-		var output = rj.validate('1987-10-01', {
+		var output = rj().validate('1987-10-01', {
 			required: true,
 			date: 'yyyy-mm-dd',
 		});
@@ -449,7 +449,7 @@ describe('validate() valid flag', () => {
 	// -----------------
 
 	it('should return valid === true for required and datetime:yyyy-mm-dd hh:mm:ss on "1987-10-01 12:31:01"', () => {
-		var output = rj.validate('1987-10-01 12:31:01', {
+		var output = rj().validate('1987-10-01 12:31:01', {
 			required: true,
 			datetime: 'yyyy-mm-dd hh:mm:ss',
 		});
@@ -462,7 +462,7 @@ describe('validate() valid flag', () => {
 	// -----------
 
 	it('should return valid === true for "foo" in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			in: ["foo", "bar", "baz"],
 		});
 		
@@ -470,7 +470,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for "foot" in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			in: ["foo", "bar", "baz"],
 		});
 		
@@ -478,7 +478,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for "foo" in {"foo": 1, "bar": 2, "baz": 3}', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			in: {"foo": 1, "bar": 2, "baz": 3},
 		});
 		
@@ -486,7 +486,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for "foot" in {"foo": 1, "bar": 2, "baz": 3}', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			in: {"foo": 1, "bar": 2, "baz": 3},
 		});
 		
@@ -498,7 +498,7 @@ describe('validate() valid flag', () => {
 	// ---------------
 
 	it('should return valid === false for "foo" not_in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			not_in: ["foo", "bar", "baz"],
 		});
 		
@@ -506,7 +506,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for "foot" not_in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			not_in: ["foo", "bar", "baz"],
 		});
 		
@@ -514,7 +514,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === false for "foo" not_in {"foo": 1, "bar": 2, "baz": 3}', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			not_in: {"foo": 1, "bar": 2, "baz": 3},
 		});
 		
@@ -522,7 +522,7 @@ describe('validate() valid flag', () => {
 	});
 
 	it('should return valid === true for "foot" not_in {"foo": 1, "bar": 2, "baz": 3}', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			not_in: {"foo": 1, "bar": 2, "baz": 3},
 		});
 		
@@ -534,7 +534,7 @@ describe('validate() valid flag', () => {
 	// ---------------
 
 	it('should return valid === true for "1987-07-08" before 10/01/1987', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			before: "10/01/1987",
 		});
 		
@@ -546,7 +546,7 @@ describe('validate() valid flag', () => {
 	// ------------------
 
 	it('should return valid === true for "1987-07-08" before_or 07/08/1987', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			before_or: "07/08/1987",
 		});
 		
@@ -558,7 +558,7 @@ describe('validate() valid flag', () => {
 	// --------------
 
 	it('should return valid === true for "1987-10-01" after 07/08/1987', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			after: "07/08/1987",
 		});
 		
@@ -570,7 +570,7 @@ describe('validate() valid flag', () => {
 	// -----------------
 
 	it('should return valid === true for "1987-10-01" after_or 1987-10-01', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			after_or: "1987-10-01",
 		});
 		
@@ -585,20 +585,20 @@ describe('validate() output message', () => {
 
 	it('should return the correct failure message for required on an empty string', () => {
 		var expected_msg = 'Required';
-		var actual_msg = rj.validate('', {required: true}).message;
+		var actual_msg = rj().validate('', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return the correct failure message for required on an empty string with a custom variable name', () => {
 		var expected_msg = 'first_name is required';
-		var actual_msg = rj.validate('', {required: true}, 'first_name').message;
+		var actual_msg = rj().validate('', {required: true}, 'first_name').message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return the correct custom failure message for required on an empty string', () => {
 		var expected_msg = 'This is a pretty weird validation message';
 		
-		var actual_msg = rj.validate('', {
+		var actual_msg = rj().validate('', {
 			required: true,
 			required_msg: 'This is a pretty weird validation message',
 		}).message;
@@ -609,7 +609,7 @@ describe('validate() output message', () => {
 	it('should return the correct custom failure message for required on an empty string with a custom variable name', () => {
 		var expected_msg = 'This is a pretty weird validation message again';
 		
-		var output = rj.validate('', {
+		var output = rj().validate('', {
 			required: true,
 			required_msg: 'This is a pretty weird validation message again',
 		}, 'first_name');
@@ -621,7 +621,7 @@ describe('validate() output message', () => {
 
 	it('should return the correct success message for required on a non-empty string', () => {
 		var expected_msg = 'all tests pass';
-		var actual_msg = rj.validate('abc123', {required: true}).message;
+		var actual_msg = rj().validate('abc123', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
@@ -630,7 +630,7 @@ describe('validate() output message', () => {
 	// -------------
 
 	it('should return valid:true for same rule of false', () => {
-		var is_valid = rj.validate('abc123', {same: false}).valid;
+		var is_valid = rj().validate('abc123', {same: false}).valid;
 		assert.equal(is_valid, true);
 	});
 
@@ -640,7 +640,7 @@ describe('validate() output message', () => {
 			value: 'abc123',
 		};
 
-		var is_valid = rj.validate('abc123', {same: same_rule}).valid;
+		var is_valid = rj().validate('abc123', {same: same_rule}).valid;
 		assert.equal(is_valid, true);
 	});
 
@@ -651,7 +651,7 @@ describe('validate() output message', () => {
 		};
 
 		var expected_msg = 'Must be the same as test_var';
-		var actual_msg = rj.validate('foobar', {same: same_rule}).message;
+		var actual_msg = rj().validate('foobar', {same: same_rule}).message;
 		assert.equal(expected_msg, actual_msg);
 	});
 
@@ -663,7 +663,7 @@ describe('validate() output message', () => {
 
 		var expected_msg = 'first_var must be the same as second_var';
 		
-		var actual_msg = rj.validate('foobar', {
+		var actual_msg = rj().validate('foobar', {
 			same: same_rule
 		}, 'first_var').message;
 		
@@ -675,7 +675,7 @@ describe('validate() output message', () => {
 	// ------------------
 
 	it('should return valid:true for different rule of false', () => {
-		var is_valid = rj.validate('abc123', {different: false}).valid;
+		var is_valid = rj().validate('abc123', {different: false}).valid;
 		assert.equal(is_valid, true);
 	});
 
@@ -685,7 +685,7 @@ describe('validate() output message', () => {
 			value: 'abc123',
 		};
 
-		var is_valid = rj.validate('foobar', {different: different_rule}).valid;
+		var is_valid = rj().validate('foobar', {different: different_rule}).valid;
 		assert.equal(is_valid, true);
 	});
 
@@ -696,7 +696,7 @@ describe('validate() output message', () => {
 		};
 
 		var expected_msg = 'Must not be the same as test_var';
-		var actual_msg = rj.validate('abc123', {different: different_rule}).message;
+		var actual_msg = rj().validate('abc123', {different: different_rule}).message;
 		assert.equal(expected_msg, actual_msg);
 	});
 
@@ -708,7 +708,7 @@ describe('validate() output message', () => {
 
 		var expected_msg = 'first_var must not be the same as second_var';
 		
-		var actual_msg = rj.validate('abc123', {
+		var actual_msg = rj().validate('abc123', {
 			different: different_rule
 		}, 'first_var').message;
 		
@@ -720,7 +720,7 @@ describe('validate() output message', () => {
 	// ------------
 
 	it('should return the correct error message for required and a min of 7 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 7,
 		});
@@ -731,7 +731,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required and a min of 7 on "foobar" with the variable name passed in', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 7,
 		}, 'Profile name');
@@ -742,7 +742,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required and a min of 7 on "foobar" with a custom error message', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			required_msg: 'Profile name is definitely required, yo',
 			min: 7,
@@ -759,7 +759,7 @@ describe('validate() output message', () => {
 	// ------------
 
 	it('should return the correct error message for required, a min of 2 and a max of 5 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 2,
 			max: 5,
@@ -771,7 +771,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required, a min of 7 and a max of 30 on "foobar"', () => {
-		var output = rj.validate('foobar', {
+		var output = rj().validate('foobar', {
 			required: true,
 			min: 7,
 			max: 30,
@@ -783,7 +783,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required, a min of 2 and a max of 5 on 6', () => {
-		var output = rj.validate(6, {
+		var output = rj().validate(6, {
 			required: true,
 			min: 2,
 			max: 5,
@@ -795,7 +795,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required, a min of 7 and a max of 30 on 6', () => {
-		var output = rj.validate(6, {
+		var output = rj().validate(6, {
 			required: true,
 			min: 7,
 			max: 30,
@@ -811,7 +811,7 @@ describe('validate() output message', () => {
 	// --------------
 
 	it('should return the correct error message for required, a min of 5 and alpha on "foo7bar"', () => {
-		var output = rj.validate("foo7bar", {
+		var output = rj().validate("foo7bar", {
 			required: true,
 			min: 5,
 			alpha: true,
@@ -827,7 +827,7 @@ describe('validate() output message', () => {
 	// ---------------------
 
 	it('should return the correct error message for required and alphanumeric on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			alphanumeric: true,
 		});
@@ -842,7 +842,7 @@ describe('validate() output message', () => {
 	// ---------------
 
 	it('should return the correct error message for required and po_box true on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			po_box: true,
 		});
@@ -853,7 +853,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required and po_box true on "foo7bar!@#" with custom variable name', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			po_box: true,
 		}, 'street line 1');
@@ -868,7 +868,7 @@ describe('validate() output message', () => {
 	// -------------------
 
 	it('should return the correct error message for required and not_po_box true on "po box 123"', () => {
-		var output = rj.validate("po box 123", {
+		var output = rj().validate("po box 123", {
 			required: true,
 			not_po_box: true,
 		});
@@ -879,7 +879,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required and not_po_box true on "po box 123" with custom variable name', () => {
-		var output = rj.validate("po box 123", {
+		var output = rj().validate("po box 123", {
 			required: true,
 			not_po_box: true,
 		}, 'street line 1');
@@ -894,7 +894,7 @@ describe('validate() output message', () => {
 	// ----------------
 
 	it('should return the correct error message for required and numeric true on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			numeric: true,
 		});
@@ -905,7 +905,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for required and numeric string on 123 with a custom variable name', () => {
-		var output = rj.validate(123, {
+		var output = rj().validate(123, {
 			required: true,
 			numeric: 'string',
 		}, 'birth date');
@@ -920,7 +920,7 @@ describe('validate() output message', () => {
 	// ---------------
 
 	it('should return the correct error message for required and number true on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			number: true,
 		});
@@ -935,7 +935,7 @@ describe('validate() output message', () => {
 	// ---------------
 
 	it('should return the correct error message for required and string true on 123', () => {
-		var output = rj.validate(123, {
+		var output = rj().validate(123, {
 			required: true,
 			string: true,
 		});
@@ -950,7 +950,7 @@ describe('validate() output message', () => {
 	// --------------
 
 	it('should return the correct error message for required and email on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			email: true,
 		});
@@ -961,7 +961,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct custom error message for required and email on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			email: true,
 			email_msg: 'not valid email',
@@ -977,7 +977,7 @@ describe('validate() output message', () => {
 	// -------------
 
 	it('should return the correct error message for required and date on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			date: 'yyyy-mm-dd',
 		});
@@ -988,7 +988,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct custom error message for required and date on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			date: 'yyyy-mm-dd',
 			date_msg: 'not valid date',
@@ -1004,7 +1004,7 @@ describe('validate() output message', () => {
 	// -----------------
 
 	it('should return the correct error message for required and datetime on "foo7bar!@#"', () => {
-		var output = rj.validate("foo7bar!@#", {
+		var output = rj().validate("foo7bar!@#", {
 			required: true,
 			datetime: 'yyyy-mm-dd',
 		});
@@ -1019,7 +1019,7 @@ describe('validate() output message', () => {
 	// -----------
 
 	it('should return the correct error message for "foot" in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			in: ["foo", "bar", "baz"],
 		});
 
@@ -1029,7 +1029,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "foot" in ["foo", "bar", "baz"] with a custom variable name', () => {
-		var output = rj.validate("foot", {
+		var output = rj().validate("foot", {
 			in: ["foo", "bar", "baz"],
 		}, "Nickname");
 
@@ -1043,7 +1043,7 @@ describe('validate() output message', () => {
 	// ---------------
 
 	it('should return the correct error message for "foo" in ["foo", "bar", "baz"]', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			not_in: ["foo", "bar", "baz"],
 		});
 
@@ -1053,7 +1053,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "foo" in ["foo", "bar", "baz"] with a custom variable name', () => {
-		var output = rj.validate("foo", {
+		var output = rj().validate("foo", {
 			not_in: ["foo", "bar", "baz"],
 		}, "Nickname");
 
@@ -1067,7 +1067,7 @@ describe('validate() output message', () => {
 	// ---------------
 
 	it('should return the correct error message for "1987-07-08" before 10/01/1987', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			before: "07/08/1987",
 		});
 
@@ -1077,7 +1077,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "1987-07-08" before new Date(10/01/1987)', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			before: new Date("07/08/1987"),
 		});
 
@@ -1087,7 +1087,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "1987-07-08" before 10/01/1987 with a custom variable name', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			before: "07/08/1987",
 		}, 'Birth date');
 
@@ -1101,7 +1101,7 @@ describe('validate() output message', () => {
 	// ------------------
 
 	it('should return the correct error message for "1987-07-08" before_or 10/01/1987', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			before_or: "07/08/1987",
 		});
 
@@ -1111,7 +1111,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "1987-07-08" before_or 10/01/1987 with a custom variable name', () => {
-		var output = rj.validate("1987-10-01", {
+		var output = rj().validate("1987-10-01", {
 			before_or: "07/08/1987",
 		}, 'Date of Death');
 
@@ -1125,7 +1125,7 @@ describe('validate() output message', () => {
 	// --------------
 
 	it('should return the correct error message for "1987-07-08" after 10/01/1987', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			after: "10/01/1987",
 		});
 
@@ -1135,7 +1135,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "1987-07-08" after 10/01/1987 with a custom variable name', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			after: "10/01/1987",
 		}, 'Date of Death');
 
@@ -1149,7 +1149,7 @@ describe('validate() output message', () => {
 	// -----------------
 
 	it('should return the correct error message for "1987-07-08" after_or 10/01/1987', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			after_or: "10/01/1987",
 		});
 
@@ -1159,7 +1159,7 @@ describe('validate() output message', () => {
 	});
 
 	it('should return the correct error message for "1987-07-08" after_or 10/01/1987 with a custom variable name', () => {
-		var output = rj.validate("1987-07-08", {
+		var output = rj().validate("1987-07-08", {
 			after_or: "10/01/1987",
 		}, 'Date of Death');
 
@@ -1174,7 +1174,7 @@ describe('validate() output message', () => {
 describe('test()', () => {
 	it('should throw an error if no arguments included', () => {
 		assert.throw(
-			rj.test, 
+			rj().test, 
 			Error, 
 			"Not enough arguments passed to function 'validate'"
 		);
@@ -1182,42 +1182,42 @@ describe('test()', () => {
 
 	it('should throw an error if the value to test is an array', () => {
 		assert.throw(
-			() => {rj.test([], {})}, 
+			() => {rj().test([], {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
 	});
 
 	it('should return valid === false for required on an empty string', () => {
-		var output = rj.test('', {required: true});
+		var output = rj().test('', {required: true});
 		assert.equal(output.valid, false);
 	});
 
 	it('should return valid === false for required on an empty string with a custom variable name', () => {
-		var output = rj.test('', {required: true}, 'first_name');
+		var output = rj().test('', {required: true}, 'first_name');
 		assert.equal(output.valid, false);
 	});
 
 	it('should return the correct failure message for required on an empty string', () => {
 		var expected_msg = 'Required';
-		var actual_msg = rj.test('', {required: true}).message;
+		var actual_msg = rj().test('', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return the correct failure message for required on an empty string with a custom variable name', () => {
 		var expected_msg = 'first_name is required';
-		var actual_msg = rj.test('', {required: true}, 'first_name').message;
+		var actual_msg = rj().test('', {required: true}, 'first_name').message;
 		assert.equal(actual_msg, expected_msg);
 	});
 
 	it('should return valid === true for required on a non-empty string', () => {
-		var output = rj.test('abc123', {required: true});
+		var output = rj().test('abc123', {required: true});
 		assert.equal(output.valid, true);
 	});
 
 	it('should return the correct success message for required on a non-empty string', () => {
 		var expected_msg = 'all tests pass';
-		var actual_msg = rj.test('abc123', {required: true}).message;
+		var actual_msg = rj().test('abc123', {required: true}).message;
 		assert.equal(actual_msg, expected_msg);
 	});
 });
@@ -1225,7 +1225,7 @@ describe('test()', () => {
 describe('isValid()', () => {
 	it('should throw an error if no arguments included', () => {
 		assert.throw(
-			rj.isValid, 
+			rj().isValid, 
 			Error, 
 			"Not enough arguments passed to function 'validate'"
 		);
@@ -1233,24 +1233,24 @@ describe('isValid()', () => {
 
 	it('should throw an error if the value to test is an array', () => {
 		assert.throw(
-			() => {rj.isValid([], {})}, 
+			() => {rj().isValid([], {})}, 
 			Error, 
 			"Invalid test parameter"
 		);
 	});
 
 	it('should return false for required on an empty string', () => {
-		var output = rj.isValid('', {required: true});
+		var output = rj().isValid('', {required: true});
 		assert.equal(output, false);
 	});
 
 	it('should return false for required on an empty string with a custom variable name', () => {
-		var output = rj.isValid('', {required: true}, 'first_name');
+		var output = rj().isValid('', {required: true}, 'first_name');
 		assert.equal(output, false);
 	});
 
 	it('should return true for required on a non-empty string', () => {
-		var output = rj.isValid('abc123', {required: true});
+		var output = rj().isValid('abc123', {required: true});
 		assert.equal(output, true);
 	});
 });
@@ -1259,7 +1259,7 @@ describe('custom rules', () => {
 	it('should throw an error if custom rules is not an array', () => {
 		assert.throw(
 			() => {
-				rj.test('the quick brown fox jumps over the lazy dog', {
+				rj().test('the quick brown fox jumps over the lazy dog', {
 				    required: true,
 				    min: 4,
 				    custom: true
@@ -1272,7 +1272,7 @@ describe('custom rules', () => {
 	});
 
 	it('should return true for custom rules === false', () => {
-		const output = rj.test('the quick brown fox jumps over the lazy dog', {
+		const output = rj().test('the quick brown fox jumps over the lazy dog', {
 		    required: true,
 		    min: 4,
 		    custom: false
@@ -1286,7 +1286,7 @@ describe('custom rules', () => {
 			return input[0] === input[0].toUpperCase();
 		}
 
-		const output = rj.test('the', {
+		const output = rj().test('the', {
 		    required: true,
 		    min: 4,
 		    custom: [{
@@ -1306,7 +1306,7 @@ describe('custom rules', () => {
 			return input[0] === input[0].toUpperCase();
 		}
 
-		const output = rj.test('the quick brown fox jumps over the lazy dog', {
+		const output = rj().test('the quick brown fox jumps over the lazy dog', {
 		    required: true,
 		    min: 4,
 		    custom: [{
@@ -1330,7 +1330,7 @@ describe('custom rules', () => {
 			return input.slice(-1) === '.';
 		}
 
-		const output = rj.test('The quick brown fox jumps over the lazy dog', {
+		const output = rj().test('The quick brown fox jumps over the lazy dog', {
 		    required: true,
 		    min: 4,
 		    custom: [
@@ -1363,7 +1363,7 @@ describe('custom rules', () => {
 			return input.slice(-1) === '.';
 		}
 
-		const output = rj.test('the', {
+		const output = rj().test('the', {
 		    required: true,
 		    custom: [
 		    	{
@@ -1382,7 +1382,7 @@ describe('custom rules', () => {
 
 		    	{
 		    		test: function(input) {
-		    			return rj.isValid(input, {min: 4});
+		    			return rj().isValid(input, {min: 4});
 		    		},
 		    		error_msg: 'Sentence is too short. Is this a sentence fragment?'
 				},
@@ -1397,14 +1397,14 @@ describe('custom rules', () => {
 describe('validateAll()', () => {
 	it('should throw an error if input is not an array', () => {
 		assert.throw(
-			() => {rj.validateAll('abc123');},
+			() => {rj().validateAll('abc123');},
 			Error, 
 			"Input to validateAll() must be an array"
 		);
 	});
 
 	it('should return the expected output for Professor Farnsworth', () => {
-		const output = rj.validateAll([
+		const output = rj().validateAll([
 			{
 				name: 'first name',
 				value: 'Hubert!',

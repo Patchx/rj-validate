@@ -36,9 +36,9 @@ via a CDN:
 Validating an input:
 
 ```javascript
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.validate('abc123', {
+rj().validate('abc123', {
     required: true
 });
 
@@ -50,9 +50,9 @@ rj.validate('abc123', {
 The validate() and test() methods are interchangeable:
 
 ```javascript
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.test('abc123', {
+rj().test('abc123', {
     required: true
 });
 
@@ -64,7 +64,7 @@ rj.test('abc123', {
 The validate() method takes three arguments:
 
 ```
-rj.validate(
+rj().validate(
 	[ the input to validate (either a string or a number) ],
 	[ the rules to test the input against (object) ],
 	[ the name of the variable (a string) (optional) ]
@@ -87,7 +87,7 @@ The output of the validate() method is an object with the following structure:
 If you would like to replace the default error message with your own, you can pass that message into the rules argument:
 
 ```javascript
-rj.test('', {
+rj().test('', {
     required: true,
     required_msg: "That's a failure"
 });
@@ -102,7 +102,7 @@ For each rule that you'd like to have a custom error message, add a ```[rule]_ms
 In some scenarios, you may not be interested in the specific error message and you only want to know if the request passes all validations. In those situations, you can use isValid()
 
 ```javascript
-rj.isValid('1987-10-01', {
+rj().isValid('1987-10-01', {
     required: true,
     date: 'yyyy-mm-dd',
     before: '1980-01-01'
@@ -151,9 +151,9 @@ function startsWithCapital(input) {
 	return input[0] === input[0].toUpperCase();
 }
 
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.test('the quick brown fox jumps over the lazy dog', {
+rj().test('the quick brown fox jumps over the lazy dog', {
     required: true,
     min: 4,
     custom: [{
@@ -180,9 +180,9 @@ function endsWithPeriod(input) {
 	return input.slice(-1) === '.';
 }
 
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.test('The quick brown fox jumps over the lazy dog', {
+rj().test('The quick brown fox jumps over the lazy dog', {
     required: true,
     min: 4,
     custom: [
@@ -218,9 +218,9 @@ function endsWithPeriod(input) {
 	return input.slice(-1) === '.';
 }
 
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.test('the', {
+rj().test('the', {
     required: true,
     custom: [
     	{
@@ -239,7 +239,7 @@ rj.test('the', {
 
     	{
     		test: function(input) {
-    			return rj.isValid(input, {min: 4});
+    			return rj().isValid(input, {min: 4});
     		},
     		error_msg: 'Sentence is too short. Is this a sentence fragment?'
 		},
@@ -255,9 +255,9 @@ rj.test('the', {
 You can also validate multiple inputs at the same time with the validateAll() method:
 
 ```javascript
-var rj = require("rj-validate");
+require("rj-validate");
 
-rj.validateAll([
+rj().validateAll([
 	{
 		name: 'first name',
 		value: 'Hubert!',
@@ -325,7 +325,9 @@ Object {
 ## More Examples:
 
 ```javascript
-var rj = require("rj-validate");
+require("rj-validate");
+
+var rj = rj();
 
 rj.test('abc123', {
     required: true
@@ -370,3 +372,12 @@ rj.validate('foobar', {
 // output:
 // Object {message: "Hold on, that profile name isn't long enough", valid: false}
 ```
+
+
+## Changelog
+
+### v1.1.0
+
+The library now exports a function instead of a object. The readme file and tests have been updated to reflect this change.
+
+

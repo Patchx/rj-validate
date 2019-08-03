@@ -118,31 +118,33 @@ function validateInput(to_test, rules_arg, var_name='') {
 // - Export -
 // ----------
 
-module.exports = {
-	isValid: function(to_test, rules_arg, var_name='') {
-		return validateInput(to_test, rules_arg, var_name).valid;
-	},
+module.exports = function rj() {
+	return {
+		isValid: function(to_test, rules_arg, var_name='') {
+			return validateInput(to_test, rules_arg, var_name).valid;
+		},
 
-	test: function(to_test, rules_arg, var_name='') {
-		return validateInput(to_test, rules_arg, var_name);
-	},
+		test: function(to_test, rules_arg, var_name='') {
+			return validateInput(to_test, rules_arg, var_name);
+		},
 
-	validate: function(to_test, rules_arg, var_name='') {
-		return validateInput(to_test, rules_arg, var_name);
-	},
+		validate: function(to_test, rules_arg, var_name='') {
+			return validateInput(to_test, rules_arg, var_name);
+		},
 
-	validateAll: function(request) {
-		if (!h.isArray(request)) {
-			throw new Error("Input to validateAll() must be an array");
+		validateAll: function(request) {
+			if (!h.isArray(request)) {
+				throw new Error("Input to validateAll() must be an array");
+			}
+
+			var output = {};
+
+			for (var i = 0; i < request.length; i++) {
+				const item = request[i];
+				output[item.name] = validateInput(item.value, item.rules, item.name);
+			}
+
+			return output;
 		}
-
-		var output = {};
-
-		for (var i = 0; i < request.length; i++) {
-			const item = request[i];
-			output[item.name] = validateInput(item.value, item.rules, item.name);
-		}
-
-		return output;
-	}
+	};
 };
