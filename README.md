@@ -30,7 +30,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.1/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -382,4 +382,7 @@ rj.validate('foobar', {
 
 The library now exports a function instead of a object. The readme file and tests have been updated to reflect this change.
 
+### v1.1.1
+
+Fixed README link for jsdelivr
 
