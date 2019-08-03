@@ -149,4 +149,8 @@ var rj = function() {
 	};
 };
 
-module.exports = rj;
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+	module.exports = rj;
+} else {
+	window.rj = rj;
+}

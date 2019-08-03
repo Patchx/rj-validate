@@ -1,7 +1,6 @@
 # rj-validate
 
 <a href="https://snyk.io/test/npm/rj-validate"><img src="https://snyk.io/test/npm/rj-validate/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/npm/rj-validate" style="max-width:100%;"></a>
-
 [![Build Status](https://travis-ci.org/Patchx/rj-validate.svg?branch=master)](https://travis-ci.org/Patchx/rj-validate)
 
 
@@ -30,7 +29,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.2/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.2.0/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -382,10 +381,6 @@ rj.validate('foobar', {
 
 The library now exports a function instead of a object. The readme file and tests have been updated to reflect this change.
 
-### v1.1.1
-
-Fixed README link for jsdelivr
-
-### v1.1.2
+### v1.2.0
 
 Fixed a bug with module exports and using the library as a CDN
