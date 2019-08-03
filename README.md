@@ -30,7 +30,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.0.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.0/dist/main.min.js"></script>```
 
 
 ## How to use:
