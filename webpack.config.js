@@ -8,7 +8,8 @@ const path = require('path');
 // - Variables -
 // -------------
 
-var library_name = 'main';
+// Don't change library_name, because it changes the function name when using the CDN
+var library_name = 'rj';
 var output_file = library_name + '.js';
 
 // ----------
