@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const rj = require('../dist/main.js');
+const rj = require('../dist/rj.js');
 
 // Testing the 'required' rule extensively here to prove the integration. Other rules will be tested at the unit level
 

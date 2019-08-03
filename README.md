@@ -29,7 +29,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.3.0/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.3.1/dist/rj.min.js"></script>```
 
 
 ## How to use:
@@ -385,6 +385,6 @@ The library now exports a function instead of a object. The readme file and test
 
 Fixed a bug with module exports and using the library as a CDN
 
-### v1.3.0
+### v1.3.1
 
 Fixed a bug with using the library as a CDN
