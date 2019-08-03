@@ -30,7 +30,7 @@ via npm:
 
 via a CDN:
 
-```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.1/dist/main.min.js"></script>```
+```<script src="https://cdn.jsdelivr.net/npm/rj-validate@1.1.2/dist/main.min.js"></script>```
 
 
 ## How to use:
@@ -386,3 +386,6 @@ The library now exports a function instead of a object. The readme file and test
 
 Fixed README link for jsdelivr
 
+### v1.1.2
+
+Fixed a bug with module exports and using the library as a CDN

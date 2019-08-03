@@ -118,7 +118,7 @@ function validateInput(to_test, rules_arg, var_name='') {
 // - Export -
 // ----------
 
-module.exports = function rj() {
+var rj = function() {
 	return {
 		isValid: function(to_test, rules_arg, var_name='') {
 			return validateInput(to_test, rules_arg, var_name).valid;
@@ -148,3 +148,5 @@ module.exports = function rj() {
 		}
 	};
 };
+
+module.exports = rj;
