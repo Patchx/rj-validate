@@ -1078,7 +1078,7 @@ describe('validate() output message', () => {
 
 	it('should return the correct error message for "1987-07-08" before new Date(10/01/1987)', () => {
 		var output = rj().validate("1987-10-01", {
-			before: new Date("07/08/1987"),
+			before: new Date("07/08/1987 00:00:00 GMT-0400 (UTC)"),
 		});
 
 		var expected_msg = 'Please enter a date prior to Wed Jul 08 1987 00:00:00 GMT-0400 (EDT)';
