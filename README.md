@@ -2,6 +2,8 @@
 
 <a href="https://snyk.io/test/npm/rj-validate"><img src="https://snyk.io/test/npm/rj-validate/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/npm/rj-validate" style="max-width:100%;"></a>
 
+[![Build Status](https://travis-ci.org/Patchx/rj-validate.svg?branch=master)](https://travis-ci.org/Patchx/rj-validate)
+
 
 Universal JS Validation Library
 
