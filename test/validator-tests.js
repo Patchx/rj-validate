@@ -1084,7 +1084,7 @@ describe('validate() output message', () => {
 			before: new Date("07/08/1987"),
 		});
 
-		var expected_msg = 'Please enter a date prior to Wed Jul 08 1987 00:00:00 GMT+0000 (UTC)';
+		var expected_msg = 'Please enter a date prior to Wed Jul 08 1987';
 		
 		assert.equal(output.message, expected_msg);
 	});

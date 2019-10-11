@@ -345,11 +345,15 @@ module.exports = [
 		rule_name: 'before',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'Please enter a date prior to ' + rules_arg.before.toString();
+			var time_string = rules_arg.before.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return 'Please enter a date prior to ' + time_string;
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be prior to ' + rules_arg.before.toString();
+			var time_string = rules_arg.before.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return var_name + ' must be prior to ' + time_string;
 		},
 
 		test: function(to_test, rules_arg) {
@@ -361,11 +365,15 @@ module.exports = [
 		rule_name: 'before_or',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'Please enter a date on or prior to ' + rules_arg.before_or.toString();
+			var time_string = rules_arg.before_or.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return 'Please enter a date on or prior to ' + time_string;
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be on or prior to ' + rules_arg.before_or.toString();
+			var time_string = rules_arg.before_or.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return var_name + ' must be on or prior to ' + time_string;
 		},
 
 		test: function(to_test, rules_arg) {
@@ -377,11 +385,15 @@ module.exports = [
 		rule_name: 'after',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'Please enter a date after ' + rules_arg.after.toString();
+			var time_string = rules_arg.after.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return 'Please enter a date after ' + time_string;
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be after ' + rules_arg.after.toString();
+			var time_string = rules_arg.after.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return var_name + ' must be after ' + time_string;
 		},
 
 		test: function(to_test, rules_arg) {
@@ -393,11 +405,15 @@ module.exports = [
 		rule_name: 'after_or',
 
 		no_varname_msg: function(to_test, rules_arg) {
-			return 'Please enter a date on or after ' + rules_arg.after_or.toString();
+			var time_string = rules_arg.after_or.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return 'Please enter a date on or after ' + time_string;
 		},
 
 		varname_msg: function(to_test, rules_arg, var_name) {
-			return var_name + ' must be on or after ' + rules_arg.after_or.toString();
+			var time_string = rules_arg.after_or.toString();
+			time_string = time_string.split(' 00:00:00')[0];
+			return var_name + ' must be on or after ' + time_string;
 		},
 
 		test: function(to_test, rules_arg) {
