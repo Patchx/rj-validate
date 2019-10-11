@@ -39,6 +39,16 @@ describe('Alpha rule on a string', () => {
 		assert.equal(result, true);
 	});
 
+	it('should return true for "wordsnospaces"', () => {
+		var result = rules.alpha('wordsnospaces', {alpha: true});
+		assert.equal(result, true);
+	});
+
+	it('should return true for "words with spaces"', () => {
+		var result = rules.alpha('words with spaces', {alpha: true});
+		assert.equal(result, true);
+	});
+
 	it('should return false for "123"', () => {
 		var result = rules.alpha('123', {alpha: true});
 		assert.equal(result, false);
