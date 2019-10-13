@@ -11,3 +11,6 @@
 Universal JS Validation Library
 
 <a href="https://rj-validate.com/">https://rj-validate.com/</a>
+
+
+- add zip rule (5 or 9 or either)

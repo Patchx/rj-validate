@@ -137,11 +137,13 @@ var rj = function() {
 				throw new Error("Input to validateAll() must be an array");
 			}
 
-			var output = {};
+			var output = {valid: true};
 
 			for (var i = 0; i < request.length; i++) {
 				const item = request[i];
-				output[item.name] = validateInput(item.value, item.rules, item.name);
+				var result = validateInput(item.value, item.rules, item.name);
+				output[item.name] = result;
+				output.valid = output.valid && result.valid;
 			}
 
 			return output;

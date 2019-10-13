@@ -1463,4 +1463,83 @@ describe('validateAll()', () => {
 		assert.equal(output['last name'].valid, true);
 		assert.equal(output['suffix'].valid, true);
 	});
+
+	it('should return valid false if one of three inputs is invalid', () => {
+		const output = rj().validateAll([
+			{
+				name: 'first name',
+				value: 'Johnny',
+				rules: {
+					required: true,
+					alpha: true
+				},
+			},
+
+			{
+				name: 'middle name',
+				value: 'T',
+				rules: {
+					alpha: true
+				}
+			},
+
+			{
+				name: 'last name',
+				value: 'Test!',
+				rules: {
+					required: true,
+					alpha: true
+				}
+			}
+		]);
+
+		assert.equal(output['valid'], false);
+	});
+
+	it('should return valid true if three of three inputs is valid', () => {
+		const output = rj().validateAll([
+			{
+				name: 'first name',
+				value: 'Johnny',
+				rules: {
+					required: true,
+					alpha: true
+				},
+			},
+
+			{
+				name: 'middle name',
+				value: 'T',
+				rules: {
+					alpha: true
+				}
+			},
+
+			{
+				name: 'last name',
+				value: 'Test',
+				rules: {
+					required: true,
+					alpha: true
+				}
+			}
+		]);
+
+		assert.equal(output['valid'], true);
+	});
+
+	it('should return valid true if one of one inputs is valid', () => {
+		const output = rj().validateAll([
+			{
+				name: 'first name',
+				value: 'Johnny',
+				rules: {
+					required: true,
+					alpha: true
+				},
+			}
+		]);
+
+		assert.equal(output['valid'], true);
+	});
 });
