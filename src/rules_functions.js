@@ -361,5 +361,35 @@ module.exports = {
 		}
 
 		return false;
+	},
+
+	zip: function(to_test, rules_arg) {
+		if (rules_arg.zip === false) {
+			return true;
+		}
+
+		if (to_test === null) {
+			return false;
+		}
+
+		if (h.isNumber(to_test)) {
+			to_test = to_test.toString();
+		}
+
+		if (!h.isString(to_test)) {
+			return false;
+		}
+		
+		if (rules_arg.zip === '5-digit') {
+			var regex = /\b\d{5}\b/g;
+		} else if ('9-digit') {
+			var regex = /(^\d{5}-\d{4}$)/g;
+		} else {
+			var regex = /(^\d{5}$)|(^\d{5}-\d{4}$)/g;
+		}
+
+		regex_result = to_test.match(regex);
+		
+		return regex_result !== null;
 	}
 };
