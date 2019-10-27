@@ -29,23 +29,38 @@ describe('Zip rule on a string', () => {
 		assert.equal(result, true);
 	});
 
-	it('should return true for "12345" and a rule of "5-digit"', () => {
-		var result = rules.zip('12345', {zip: "5-digit"});
+	it('should return true for "12345" and a rule of "usa-5"', () => {
+		var result = rules.zip('12345', {zip: "usa-5"});
 		assert.equal(result, true);
 	});
 
-	it('should return false for "12345" and a rule of "9-digit"', () => {
-		var result = rules.zip('12345', {zip: "9-digit"});
+	it('should return false for "12345" and a rule of "usa-9"', () => {
+		var result = rules.zip('12345', {zip: "usa-9"});
 		assert.equal(result, false);
 	});
 
-	it('should return false for "12345-1234" and a rule of "5-digit"', () => {
-		var result = rules.zip('12345', {zip: "5-digit"});
+	it('should return false for "12345-1234" and a rule of "usa-5"', () => {
+		var result = rules.zip('12345-1234', {zip: "usa-5"});
 		assert.equal(result, false);
 	});
 
-	it('should return true for "12345-1234" and a rule of "9-digit"', () => {
-		var result = rules.zip('12345', {zip: "9-digit"});
+	it('should return true for "12345-1234" and a rule of "usa-9"', () => {
+		var result = rules.zip('12345-1234', {zip: "usa-9"});
 		assert.equal(result, true);
+	});
+
+	it('should return false for "abc12" and a rule of "usa-5"', () => {
+		var result = rules.zip('abc12', {zip: "usa-5"});
+		assert.equal(result, false);
+	});
+
+	it('should return false for "abc123def" and a rule of "usa-9"', () => {
+		var result = rules.zip('abc123def', {zip: "usa-9"});
+		assert.equal(result, false);
+	});
+
+	it('should return false for "abc123def" and a rule of true', () => {
+		var result = rules.zip('abc123def', {zip: true});
+		assert.equal(result, false);
 	});
 });

@@ -379,17 +379,15 @@ module.exports = {
 		if (!h.isString(to_test)) {
 			return false;
 		}
-		
-		if (rules_arg.zip === '5-digit') {
-			var regex = /\b\d{5}\b/g;
-		} else if ('9-digit') {
-			var regex = /(^\d{5}-\d{4}$)/g;
+
+		if (rules_arg.zip === 'usa-5') {
+			var regex = /^\d{5}$/;
+		} else if (rules_arg.zip === 'usa-9') {
+			var regex = /^\d{5}\-\d{4}$/;
 		} else {
-			var regex = /(^\d{5}$)|(^\d{5}-\d{4}$)/g;
+			var regex = /^\d{5}$|^\d{5}-\d{4}$/;
 		}
 
-		regex_result = to_test.match(regex);
-		
-		return regex_result !== null;
+		return regex.test(to_test);
 	}
 };
