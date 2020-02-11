@@ -825,6 +825,22 @@ describe('validate() output message', () => {
 		assert.equal(output.message, expected_msg);
 	});
 
+	// -------------
+	// - name rule -
+	// -------------
+
+	it('should return the correct error message for required, a min of 5 and name "no-accents" on "foo7bar"', () => {
+		var output = rj().validate("foo7bar", {
+			required: true,
+			min: 5,
+			name: "no-accents",
+		});
+
+		var expected_msg = 'Please enter letters, apostrophes, dashes and/or spaces';
+		
+		assert.equal(output.message, expected_msg);
+	});
+
 	// ---------------------
 	// - alphanumeric rule -
 	// ---------------------

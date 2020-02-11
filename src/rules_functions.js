@@ -85,7 +85,7 @@ module.exports = {
 
 		to_test = to_test.replace(/ /g, "");
 		regex_result = to_test.match(regex);
-
+		
 		if (regex_result === null) {
 			return false;
 		}
