@@ -160,7 +160,7 @@ module.exports = [
 		},
 
 		test: function(to_test, rules_arg) {
-			return rules_tests.alpha(to_test, rules_arg);
+			return rules_tests.name(to_test, rules_arg);
 		}
 	},
 
