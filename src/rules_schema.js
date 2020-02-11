@@ -32,7 +32,6 @@ module.exports = [
 			return var_name + ' must be the same as ' + name;
 		},
 
-
 		test: function(to_test, rules_arg) {
 			if (rules_arg.same === false) {
 				return true;
@@ -142,6 +141,22 @@ module.exports = [
 
 		varname_msg: function(to_test, rules_arg, var_name) {
 			return var_name + ' may only contain letters';
+		},
+
+		test: function(to_test, rules_arg) {
+			return rules_tests.alpha(to_test, rules_arg);
+		}
+	},
+
+	{
+		rule_name: 'name',
+
+		no_varname_msg: function(to_test, rules_arg) {
+			return 'Please enter letters, apostrophes, dashes and/or spaces';
+		},
+
+		varname_msg: function(to_test, rules_arg, var_name) {
+			return var_name + ' may only contain letters, apostrophes, dashes and/or spaces';
 		},
 
 		test: function(to_test, rules_arg) {
