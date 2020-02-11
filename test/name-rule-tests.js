@@ -88,4 +88,14 @@ describe('Name rule on a string', () => {
 		var result = rules.name('Dusseldorf - Martin Luther King, Jr.', {name: 'no-accents'});
 		assert.equal(result, true);
 	});
+
+	it('should return false for "Dusseldorf1 - 2 Martin Luther King, Jr." and name of "no-accents"', () => {
+		var result = rules.name('Dusseldorf1 - 2 Martin Luther King, Jr.', {name: 'no-accents'});
+		assert.equal(result, false);
+	});
+
+	it('should return false for "1" and name of "no-accents"', () => {
+		var result = rules.name('1', {name: 'no-accents'});
+		assert.equal(result, false);
+	});
 });
