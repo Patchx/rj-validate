@@ -349,6 +349,10 @@ module.exports = {
 			return true;
 		}
 
+		if (to_test === '') {
+			return false;
+		}
+
 		if (rules_arg.numeric === 'number') {
 			return h.isNumber(to_test);
 		}
@@ -369,7 +373,11 @@ module.exports = {
 
 		const converted_string = converted_num.toString();
 
-		return to_test === converted_string;
+		if (to_test === converted_string) {
+			return true;
+		}
+
+		return !isNaN(to_test);
 	},
 
 	required: function(to_test, rules_arg) {

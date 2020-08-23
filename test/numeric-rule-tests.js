@@ -64,6 +64,26 @@ describe('Numeric rule on a string', () => {
 		assert.equal(result, true);
 	});
 
+	it('should return true for "0123" and numeric string', () => {
+		var result = rules.numeric('0123', {numeric: 'string'});
+		assert.equal(result, true);
+	});
+
+	it('should return true for "001" and numeric string', () => {
+		var result = rules.numeric('001', {numeric: 'string'});
+		assert.equal(result, true);
+	});
+
+	it('should return true for "001.02" and numeric string', () => {
+		var result = rules.numeric('001.02', {numeric: 'string'});
+		assert.equal(result, true);
+	});
+
+	it('should return true for "001.020" and numeric string', () => {
+		var result = rules.numeric('001.020', {numeric: 'string'});
+		assert.equal(result, true);
+	});
+
 	it('should return false for "123" and numeric number', () => {
 		var result = rules.numeric('123', {numeric: 'number'});
 		assert.equal(result, false);
