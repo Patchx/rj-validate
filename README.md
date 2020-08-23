@@ -8,6 +8,6 @@
 </a>
 
 
-Universal JS Validation Library
+Zero dependency, universal JS validation library
 
 <a href="https://rj-validate.com/">https://rj-validate.com/</a>
