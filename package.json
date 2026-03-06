@@ -1,6 +1,6 @@
 {
   "name": "rj-validate",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Universal JS Validation Library",
   "main": "dist/main.js",
   "scripts": {
